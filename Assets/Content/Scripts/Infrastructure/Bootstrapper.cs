@@ -1,30 +1,27 @@
-using SpringJam.Infrastructure.StateMachine;
+﻿using SpringJam.Infrastructure.SceneManagment;
 using UnityEngine;
-using Zenject;
 
 namespace SpringJam.Infrastructure
 {
     public class Bootstrapper : MonoBehaviour
     {
-        private GameStateMachine gameStateMachine;
+        [SerializeField] private LoadingScreen loadingScreen;
 
-        private void Start()
+        private void Awake()
         {
-            RegistrationGlobalGameStates();
-
-            gameStateMachine.Enter<BootstrapState>();
+            DontDestroyOnLoad(gameObject);
         }
 
-        [Inject]
-        public void Construct(GameStateMachine gameStateMachine)
+        private async void Start()
         {
-            this.gameStateMachine = gameStateMachine;
-        }
+            Application.targetFrameRate = int.MaxValue;
 
-        private void RegistrationGlobalGameStates()
-        {
-            gameStateMachine.RegisterState<BootstrapState>();
-            gameStateMachine.RegisterState<GameplayState>();
+            var loadingOperations = new ILoadingOperation[]
+            {
+                new SceneLoadingOperation(SceneNames.GameScene),
+            };
+
+            await loadingScreen.LoadAsync(loadingOperations);
         }
     }
 }

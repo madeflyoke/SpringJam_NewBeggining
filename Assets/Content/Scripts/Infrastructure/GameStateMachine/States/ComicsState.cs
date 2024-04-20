@@ -2,13 +2,16 @@ using Cysharp.Threading.Tasks;
 
 namespace SpringJam.Infrastructure.StateMachine
 {
-    public class GameplayState : IState
+    public class ComicsState : IState
     {
         public async UniTask Enter()
         {
 
         }
 
-        public async UniTask Exit() { }
+        public async UniTask Exit()
+        {
+
+        }
     }
 }

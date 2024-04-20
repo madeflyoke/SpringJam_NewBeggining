@@ -1,23 +1,31 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using Zenject;
 
 namespace SpringJam.Infrastructure.StateMachine
 {
-    public class GameStateMachine
+    public class GameStateMachine : IInitializable
     {
         private readonly Dictionary<Type, IState> registeredStates;
 
-        private StateFactory stateFactory;
+        private GameStateFactory gameStateFactory;
         private IState currentState;
 
         public IState CurrentState => currentState;
 
-        private GameStateMachine(StateFactory stateFactory)
+        public GameStateMachine(GameStateFactory gameStateFactory)
         {
             registeredStates = new();
 
-            this.stateFactory = stateFactory;
+            this.gameStateFactory = gameStateFactory;
+        }
+
+        public void Initialize()
+        {
+            RegisterState<ComicsState>();
+
+            Enter<ComicsState>();
         }
 
         public async void Enter<T>() where T : class, IState
@@ -29,7 +37,7 @@ namespace SpringJam.Infrastructure.StateMachine
 
         public void RegisterState<T>() where T : IState
         {
-            registeredStates.Add(typeof(T), stateFactory.CreateState<T>());
+            registeredStates.Add(typeof(T), gameStateFactory.CreateState<T>());
         }
 
         private async UniTask<T> ChangeState<T>() where T : class, IState

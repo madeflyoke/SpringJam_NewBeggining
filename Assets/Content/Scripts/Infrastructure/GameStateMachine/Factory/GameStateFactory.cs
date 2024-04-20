@@ -2,11 +2,11 @@ using Zenject;
 
 namespace SpringJam.Infrastructure.StateMachine
 {
-    public class StateFactory
+    public class GameStateFactory
     {
         private readonly DiContainer container;
 
-        public StateFactory(DiContainer container)
+        public GameStateFactory(DiContainer container)
         {
             this.container = container;
         }
