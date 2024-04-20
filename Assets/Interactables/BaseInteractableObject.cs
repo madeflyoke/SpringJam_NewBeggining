@@ -25,7 +25,7 @@ namespace Interactables
             InteractionZone.ExitInteractionZone -= OnExitInteractionZone;
         }
 
-        private void OnEnterInteractionZone(IInteractor interactor)
+        protected void OnEnterInteractionZone()
         {
             _interactableUIView.ShowButtonInfo();
             ProcessCatchingKey();
@@ -33,6 +33,7 @@ namespace Interactables
 
         private void OnExitInteractionZone()
         {
+            _interactableUIView.HideButtonInfo();
             StopCatchingKey();
         }
 

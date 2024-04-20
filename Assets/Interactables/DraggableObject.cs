@@ -26,14 +26,12 @@ namespace Interactables
             {
                 InteractionZone.Disable(false);
                 Drag();
+                _isDragging = true;
             }
             else
             {
-                InteractionZone.Enable();
                 Release();
             }
-            
-            _isDragging = !_isDragging;
         }
 
         private async void Drag()
@@ -43,34 +41,49 @@ namespace Interactables
             var distanceBetweenInteractor = interactorTr.position.x - transform.position.x;
             _cts = new CancellationTokenSource();
             
-            while (Vector3.Distance(transform.position, _originalPoint)<_breakDistance)
+            while (true)
             {
-                var correctedPos = transform.position;
-                correctedPos.x = interactorTr.position.x-distanceBetweenInteractor;
-                
-                Physics.Simulate(Time.fixedDeltaTime);
-                _rb.MovePosition(correctedPos);
-                
-                var isCanceled= await UniTask.Yield(_cts.Token).SuppressCancellationThrow();
+                var isCanceled = await UniTask.Yield(_cts.Token).SuppressCancellationThrow();
                 if (isCanceled)
                 {
+                    Release();
                     return;
                 }
+                
+                var correctedPos = transform.position;
+                correctedPos.x = interactorTr.position.x - distanceBetweenInteractor;
+                
+                if (Vector3.Distance(correctedPos, _originalPoint)>=_breakDistance)
+                {
+                    Release();
+                    return;
+                }
+                
+                _rb.MovePosition(correctedPos);
             }
         }
 
         private void Release()
         {
             _cts?.Cancel();
+            InteractionZone.Enable();
+            OnEnterInteractionZone();
+            _isDragging = false;
         }
         
 #if UNITY_EDITOR
 
         private void OnDrawGizmosSelected()
-        {
+        {            
             Handles.color = Color.yellow;
-            Handles.DrawLine(transform.position, transform.position+transform.right*_breakDistance);
-            Handles.DrawLine(transform.position, transform.position-transform.right*_breakDistance);
+            if (Application.isPlaying)
+            {
+                Handles.DrawLine(_originalPoint-transform.right*_breakDistance, _originalPoint+transform.right*_breakDistance);
+            }
+            else
+            {
+                Handles.DrawLine(transform.position-transform.right*_breakDistance, transform.position+transform.right*_breakDistance);
+            }
         }
 
 #endif

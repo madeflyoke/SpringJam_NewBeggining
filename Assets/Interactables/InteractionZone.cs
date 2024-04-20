@@ -10,11 +10,10 @@ namespace Interactables
     {
         public IInteractor CurrentInteractor { get; private set; }
         
-        public event Action<IInteractor> EnterInteractionZone;
+        public event Action EnterInteractionZone;
         public event Action ExitInteractionZone;
         
         [SerializeField] private List<InteractorType> _allowedInteractors;
-        private bool _inZone;
 
         public void Disable(bool totally)
         {
@@ -33,22 +32,21 @@ namespace Interactables
         private void OnTriggerEnter(Collider other)
         {
             Debug.LogWarning("ENTERD");
-            if (_inZone)
+            if (CurrentInteractor!=null)
             {
                 return;
             }
 
             if (other.TryGetComponent(out IInteractor interactor)&&ValidateInteractable(interactor.InteractorType))
             {
-                EnterInteractionZone?.Invoke(interactor);
                 CurrentInteractor = interactor;
-                _inZone = true;
+                EnterInteractionZone?.Invoke();
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (!_inZone)
+            if (CurrentInteractor==null)
             {
                 return;
             }
@@ -60,7 +58,6 @@ namespace Interactables
         {
             ExitInteractionZone?.Invoke();
             CurrentInteractor = null;
-            _inZone = false;
         }
         
         private bool ValidateInteractable(InteractorType interactorType)
