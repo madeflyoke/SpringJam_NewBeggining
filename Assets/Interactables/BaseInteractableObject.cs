@@ -72,7 +72,7 @@ namespace Interactables
         
 #if UNITY_EDITOR
 
-        private void OnValidate()
+        protected virtual void OnValidate()
         {
             InteractionZone ??= GetComponentInChildren<InteractionZone>();
             _interactableUIView ??= GetComponentInChildren<InteractableUIView>();

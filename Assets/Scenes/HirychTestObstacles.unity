@@ -409,6 +409,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 392568195719914727, guid: d548c4bbb18202343a89c155851a3da4, type: 3}
+      propertyPath: m_Size.x
+      value: 2.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 392568195719914727, guid: d548c4bbb18202343a89c155851a3da4, type: 3}
+      propertyPath: m_Size.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 392568195719914727, guid: d548c4bbb18202343a89c155851a3da4, type: 3}
+      propertyPath: m_Size.z
+      value: 2.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 392568195719914727, guid: d548c4bbb18202343a89c155851a3da4, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 392568195719914727, guid: d548c4bbb18202343a89c155851a3da4, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1544586858144876464, guid: d548c4bbb18202343a89c155851a3da4, type: 3}
       propertyPath: m_Name
       value: DraggableStoneObstacle

@@ -6,6 +6,7 @@ namespace Player
 {
     public class Character : MonoBehaviour, IMovableInteractor
     {
+        public Vector3 CurrentPosition => transform.position;
         public Vector3 CurrentVelocity => movementComponent.ControllerVelocity;
         [field: SerializeField] public InteractorType InteractorType { get; private set; }
         

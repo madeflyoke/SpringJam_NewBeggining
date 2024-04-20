@@ -5,6 +5,8 @@ namespace Interactables.Interfaces
 {
    public interface IMovableInteractor
    {
+      public Vector3 CurrentPosition { get; }
+      
       public Vector3 CurrentVelocity { get; }
 
       public InteractorType InteractorType { get; }
