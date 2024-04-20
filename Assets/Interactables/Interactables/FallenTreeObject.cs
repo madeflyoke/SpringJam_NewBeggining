@@ -11,10 +11,10 @@ namespace Interactables
         [SerializeField] private float _speed;
         
         [Button]
-        protected override void Interact()
+        protected override void TryInteract()
         {
             InteractionZone.Disable(true);
-            StopCatchingKey();
+            KeyCatcher.Disable();
             
             var finalRot = (_backwardFallSide ? -transform.right : transform.right) * 90f;
             _bottomPivot.DORotate(finalRot,_speed).SetEase(Ease.InQuad);

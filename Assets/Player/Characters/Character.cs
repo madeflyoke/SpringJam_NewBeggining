@@ -1,19 +1,23 @@
 using Interactables.Enums;
+using Interactables.Interactors;
 using Interactables.Interfaces;
+using Player.Characters;
 using UnityEngine;
 
 namespace Player
 {
-    public class Character : MonoBehaviour, IMovableInteractor
+    public class Character : MonoBehaviour
     {
-        public Vector3 CurrentPosition => transform.position;
-        public Vector3 CurrentVelocity => movementComponent.ControllerVelocity;
-        [field: SerializeField] public InteractorType InteractorType { get; private set; }
-        
         [SerializeField] private CharacterType type; 
-        [SerializeField] private CharacterMovementComponent movementComponent; 
+        [SerializeField] private CharacterMovementComponent movementComponent;
+        [SerializeField] private CommonInteractor commonInteractor;
         public CharacterType Type=>type;
         public CharacterMovementComponent MovementComponent=>movementComponent;
+
+        public void ResetInteractor()
+        {
+            commonInteractor.ResetInteractor();
+        }
     }
 
     public enum CharacterType

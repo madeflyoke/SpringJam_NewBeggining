@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3580431618034614359}
   - component: {fileID: 675085873076449648}
   - component: {fileID: 7631342260565772617}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 6047318943731495102}
   - component: {fileID: 1870240841113448784}
   - component: {fileID: 7099458283392304543}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1093813115107922077}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: InteractableObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 4380621236816346548}
   - component: {fileID: 1867958108427268989}
   - component: {fileID: 4648866734701471520}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UIView
   m_TagString: Untagged
   m_Icon: {fileID: 0}

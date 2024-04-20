@@ -167,6 +167,7 @@ namespace Player
             character.MovementComponent.directionLock = true;
             character.MovementComponent.jumpLook = true;
             character.MovementComponent.isEnabled = false;
+            character.ResetInteractor();
         }
         
         private void OnDrawGizmos()

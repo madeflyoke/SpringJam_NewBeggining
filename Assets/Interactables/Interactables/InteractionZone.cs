@@ -8,12 +8,18 @@ namespace Interactables
 {
     public class InteractionZone : MonoBehaviour
     {
-        public IMovableInteractor CurrentInteractor { get; private set; }
-        
+
         public event Action EnterInteractionZone;
         public event Action ExitInteractionZone;
-        
+
         [SerializeField] private List<InteractorType> _allowedInteractors;
+        private IInteractable _relatedInteractable;
+        private bool _zoneInteracting;
+
+        public void Init(IInteractable relatedInteractable)
+        {
+            _relatedInteractable = relatedInteractable;
+        }
 
         public void Disable(bool totally)
         {
@@ -31,26 +37,25 @@ namespace Interactables
                 gameObject.SetActive(true);
             }
         }
-
+        
         private void OnTriggerEnter(Collider other)
         {
-            if (CurrentInteractor!=null)
+            if (_zoneInteracting)
             {
                 return;
             }
             
-            Debug.LogWarning("ENTERD");
-
-            if (other.TryGetComponent(out IMovableInteractor interactor)&&ValidateInteractable(interactor.InteractorType))
+            if (other.TryGetComponent(out IInteractor interactor) && ValidateInteractable(interactor.InteractorType))
             {
-                CurrentInteractor = interactor;
+                _relatedInteractable.SetInteractor(interactor);
                 EnterInteractionZone?.Invoke();
+                _zoneInteracting = true;
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (CurrentInteractor==null)
+            if (_zoneInteracting==false)
             {
                 return;
             }
@@ -61,12 +66,13 @@ namespace Interactables
         private void OnExit()
         {
             ExitInteractionZone?.Invoke();
-            CurrentInteractor = null;
+            _zoneInteracting = false;
         }
         
         private bool ValidateInteractable(InteractorType interactorType)
         {
             return _allowedInteractors.Contains(interactorType);
         }
+        
     }
 }

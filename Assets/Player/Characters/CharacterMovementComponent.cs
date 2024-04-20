@@ -1,9 +1,8 @@
 using System;
 using DG.Tweening;
-using Player.Characters;
 using UnityEngine;
 
-namespace Player
+namespace Player.Characters
 {
     public class CharacterMovementComponent : MonoBehaviour
     {
@@ -16,10 +15,7 @@ namespace Player
         [SerializeField] private float groundCheckerRadius;
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private Transform ModelContainer;
-        public Vector3 ControllerVelocity => controller.velocity;
         
-        public float speed;
-        public float jumpHeight;
         private CharacterMotionData MotionData;
         public LookDirection LookDirection { get; private set; }
         public bool directionLock;
@@ -27,7 +23,6 @@ namespace Player
         public bool isEnabled;
         private bool isGrounded;
         private Vector3 velocity;
-
         
         public void Start()
         {
