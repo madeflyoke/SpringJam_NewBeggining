@@ -46,21 +46,20 @@ namespace Interactables
             KeyCatcher.OnKeyPressed += OnKeyCaught;
         }
 
-        private void OnExitInteractionZone()
+        protected virtual void OnExitInteractionZone()
         {
             InteractableUIView.HideButtonInfo();
             KeyCatcher.OnKeyPressed -= OnKeyCaught;
-            ReleaseInteraction();
+            CurrentInteractor = null;
         }
 
         protected abstract void TryInteract();
         
-        
         public void ReleaseInteraction()
         {
-            CurrentInteractor = null;
+            InteractionZone.OnExit();
         }
-        
+
 #if UNITY_EDITOR
 
         protected virtual void OnValidate()

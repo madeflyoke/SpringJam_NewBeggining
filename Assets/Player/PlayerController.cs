@@ -172,6 +172,7 @@ namespace Player
             character.MovementComponent.directionLock = false;
             character.MovementComponent.jumpLook = false;
             character.MovementComponent.isEnabled = true;
+            character.IsSelected = true;
         }
         
         private void DisableCharacter(Character character)
@@ -180,6 +181,7 @@ namespace Player
             character.MovementComponent.jumpLook = true;
             character.MovementComponent.isEnabled = false;
             character.ResetInteractor();
+            character.IsSelected = false;
         }
         
         private void OnDrawGizmos()

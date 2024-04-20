@@ -6,5 +6,6 @@ namespace Interactables.Interfaces
    {
       public IInteractable CurrentInteractable { get; set; }
       public InteractorType InteractorType { get; }
+      public bool IsActive { get; }
    }
 }

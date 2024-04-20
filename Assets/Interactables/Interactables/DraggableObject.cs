@@ -35,36 +35,44 @@ namespace Interactables
         
         protected override void TryInteract()
         {
-            if (CurrentInteractor is CommonInteractor interactor)
+            if (CurrentInteractor is CommonCharacterInteractor interactor)
             {
                 if (_isDragging==false)
                 {
-                    SetDragging(interactor);
+                    SetDragging();
+                    interactor.ConnectorPoint.Connect(_rb);
                 }
                 else
                 {
-                    Release(interactor);
+                    interactor.ConnectorPoint.Release();
+                    Release();
                 }
             }
         }
         
-        private void SetDragging(CommonInteractor interactor)
+        private void SetDragging()
         {
             InteractionZone.Disable(false);
-            interactor.ConnectorPoint.Connect(_rb);
             Freeze(false);
             _isDragging = true;
         }
 
-        private void Release(CommonInteractor interactor)
+        private void Release()
         {
             _isDragging = false;
             Freeze(true);
-            interactor.ConnectorPoint.Release();
             InteractionZone.Enable();
-            InteractableUIView.ShowButtonInfo();
         }
         
+        protected override void OnExitInteractionZone()
+        {
+            if (_isDragging)
+            {
+                Release();
+            }
+            base.OnExitInteractionZone();
+        }
+
 #if UNITY_EDITOR
 
         private void OnDrawGizmosSelected()

@@ -1,3 +1,4 @@
+using System;
 using Interactables.Enums;
 using Interactables.Interactors;
 using Interactables.Interfaces;
@@ -10,13 +11,15 @@ namespace Player
     {
         [SerializeField] private CharacterType type; 
         [SerializeField] private CharacterMovementComponent movementComponent;
-        [SerializeField] private CommonInteractor commonInteractor;
+        [SerializeField] private CommonCharacterInteractor commonCharacterInteractor;
         public CharacterType Type=>type;
         public CharacterMovementComponent MovementComponent=>movementComponent;
+        public bool IsSelected { get; set; }
+        
 
         public void ResetInteractor()
         {
-            commonInteractor.ResetInteractor();
+            commonCharacterInteractor.ResetInteractor();
         }
     }
 

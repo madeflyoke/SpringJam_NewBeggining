@@ -5,15 +5,19 @@ namespace Interactables.Interactors
 {
     public class ConnectorPoint : MonoBehaviour
     {
-        [SerializeField] private FixedJoint _connectionJoint;
+        [SerializeField] private ConfigurableJoint _connectionJoint;
+        
         private bool _connected;
         private Rigidbody _connectedRb;
         
         public void Connect(Rigidbody rb)
         {
-            _connectedRb = rb;
-            _connectionJoint.connectedBody = _connectedRb;
-            _connected = true;
+            if (_connected == false)
+            {
+                _connectedRb = rb;
+                _connectionJoint.connectedBody = _connectedRb;
+                _connected = true;
+            }
         }
 
         public void Release()

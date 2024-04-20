@@ -8,7 +8,6 @@ namespace Interactables
 {
     public class InteractionZone : MonoBehaviour
     {
-
         public event Action EnterInteractionZone;
         public event Action ExitInteractionZone;
 
@@ -45,9 +44,10 @@ namespace Interactables
                 return;
             }
             
-            if (other.TryGetComponent(out IInteractor interactor) && ValidateInteractable(interactor.InteractorType))
+            if (other.TryGetComponent(out IInteractor interactor) && interactor.IsActive && ValidateInteractable(interactor.InteractorType))
             {
                 _relatedInteractable.SetInteractor(interactor);
+                interactor.CurrentInteractable = _relatedInteractable;
                 EnterInteractionZone?.Invoke();
                 _zoneInteracting = true;
             }
@@ -63,7 +63,7 @@ namespace Interactables
             OnExit();
         }
 
-        private void OnExit()
+        public void OnExit()
         {
             ExitInteractionZone?.Invoke();
             _zoneInteracting = false;

@@ -197,8 +197,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   ModelContainer: {fileID: 1646226538476929462}
-  speed: 0
-  jumpHeight: 0
   directionLock: 0
   jumpLook: 0
   isEnabled: 0
@@ -216,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ConnectorPoint>k__BackingField: {fileID: 7709698722456996136}
   <InteractorType>k__BackingField: 0
+  _relatedCharacter: {fileID: 8363238777532962740}
 --- !u!114 &8363238777532962740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   movementComponent: {fileID: 4978992180429713336}
-  commonInteractor: {fileID: 1026355633366302546}
+  commonCharacterInteractor: {fileID: 1026355633366302546}
 --- !u!1 &6988402337627822445
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +242,7 @@ GameObject:
   - component: {fileID: 8334787477392304548}
   - component: {fileID: 7709698722456996136}
   - component: {fileID: 5097268814401157376}
-  - component: {fileID: 926501509374957147}
+  - component: {fileID: 8340911765616512754}
   m_Layer: 10
   m_Name: ConnectorPoint
   m_TagString: Untagged
@@ -282,7 +281,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -305,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f169e6326496cd4db8af8fb28ac15ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _connectionJoint: {fileID: 926501509374957147}
+  _connectionJoint: {fileID: 8340911765616512754}
 --- !u!65 &5097268814401157376
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -327,8 +326,8 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!138 &926501509374957147
-FixedJoint:
+--- !u!153 &8340911765616512754
+ConfigurableJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -336,9 +335,96 @@ FixedJoint:
   m_GameObject: {fileID: 6988402337627822445}
   m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
+  m_Anchor: {x: 0, y: 0, z: 0}
+  m_Axis: {x: 1, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: 0, y: 2.88, z: 0}
+  serializedVersion: 3
+  m_SecondaryAxis: {x: 0, y: 1, z: 0}
+  m_XMotion: 1
+  m_YMotion: 0
+  m_ZMotion: 0
+  m_AngularXMotion: 0
+  m_AngularYMotion: 0
+  m_AngularZMotion: 0
+  m_LinearLimitSpring:
+    spring: 0
+    damper: 0
+  m_LinearLimit:
+    limit: 0.1
+    bounciness: 0
+    contactDistance: 0
+  m_AngularXLimitSpring:
+    spring: 0
+    damper: 0
+  m_LowAngularXLimit:
+    limit: 0
+    bounciness: 0
+    contactDistance: 0
+  m_HighAngularXLimit:
+    limit: 0
+    bounciness: 0
+    contactDistance: 0
+  m_AngularYZLimitSpring:
+    spring: 0
+    damper: 0
+  m_AngularYLimit:
+    limit: 0
+    bounciness: 0
+    contactDistance: 0
+  m_AngularZLimit:
+    limit: 0
+    bounciness: 0
+    contactDistance: 0
+  m_TargetPosition: {x: 0, y: 0, z: 0}
+  m_TargetVelocity: {x: 0, y: 0, z: 0}
+  m_XDrive:
+    serializedVersion: 4
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 3.4028233e+38
+    useAcceleration: 0
+  m_YDrive:
+    serializedVersion: 4
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 3.4028233e+38
+    useAcceleration: 0
+  m_ZDrive:
+    serializedVersion: 4
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 3.4028233e+38
+    useAcceleration: 0
+  m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
+  m_RotationDriveMode: 0
+  m_AngularXDrive:
+    serializedVersion: 4
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 3.4028233e+38
+    useAcceleration: 0
+  m_AngularYZDrive:
+    serializedVersion: 4
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 3.4028233e+38
+    useAcceleration: 0
+  m_SlerpDrive:
+    serializedVersion: 4
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 3.4028233e+38
+    useAcceleration: 0
+  m_ProjectionMode: 0
+  m_ProjectionDistance: 0.1
+  m_ProjectionAngle: 180
+  m_ConfiguredInWorldSpace: 0
+  m_SwapBodies: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
