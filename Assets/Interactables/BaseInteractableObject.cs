@@ -1,46 +1,43 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Interactables.Interfaces;
 using UnityEngine;
 
 namespace Interactables
 {
-    public abstract class InteractableObject : MonoBehaviour
+    public abstract class BaseInteractableObject : MonoBehaviour
     {
-        [SerializeField] private InteractionZone _interactionZone;
+        [SerializeField] protected InteractionZone InteractionZone;
         [SerializeField] private InteractableUIView _interactableUIView;
-        [SerializeField] private bool _oneTimeInteractable;
         private CancellationTokenSource _cts;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
-            _interactionZone.EnterInteraction += OnEnterInteraction;
-            _interactionZone.ExitInteraction += OnExitInteraction;
+            InteractionZone.EnterInteractionZone += OnEnterInteractionZone;
+            InteractionZone.ExitInteractionZone += OnExitInteractionZone;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             _cts?.Cancel();
-            _interactionZone.EnterInteraction -= OnEnterInteraction;
-            _interactionZone.ExitInteraction -= OnExitInteraction;
+            InteractionZone.EnterInteractionZone -= OnEnterInteractionZone;
+            InteractionZone.ExitInteractionZone -= OnExitInteractionZone;
         }
 
-        private void OnEnterInteraction(bool isValidTarget)
+        private void OnEnterInteractionZone(IInteractor interactor)
         {
-            if (isValidTarget)
-            {
-                ProcessCatchingKey();
-            }
+            _interactableUIView.ShowButtonInfo();
+            ProcessCatchingKey();
         }
 
-        private void OnExitInteraction()
+        private void OnExitInteractionZone()
         {
             StopCatchingKey();
         }
 
         private async void ProcessCatchingKey()
         {
-            Debug.LogWarning("KEY");
-
             _cts = new CancellationTokenSource();
 
             while (Input.GetKeyDown(KeyCode.E)==false)
@@ -64,12 +61,18 @@ namespace Interactables
         {
             Interact();
             _interactableUIView.HideButtonInfo();
-            if (_oneTimeInteractable)
-            {
-                _interactionZone.Disable();
-            }
         }
 
         protected abstract void Interact();
+        
+#if UNITY_EDITOR
+
+        private void OnValidate()
+        {
+            InteractionZone ??= GetComponentInChildren<InteractionZone>();
+            _interactableUIView ??= GetComponentInChildren<InteractableUIView>();
+        }
+
+#endif
     }
 }

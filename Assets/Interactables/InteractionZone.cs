@@ -8,29 +8,47 @@ namespace Interactables
 {
     public class InteractionZone : MonoBehaviour
     {
-        public event Action<bool> EnterInteraction;
-
-        public event Action ExitInteraction;
+        public IInteractor CurrentInteractor { get; private set; }
+        
+        public event Action<IInteractor> EnterInteractionZone;
+        public event Action ExitInteractionZone;
         
         [SerializeField] private List<InteractorType> _allowedInteractors;
-        private bool _inInteractionProcess;
+        private bool _inZone;
+
+        public void Disable(bool totally)
+        {
+            if (totally)
+            {
+                OnExit();
+            }
+            gameObject.SetActive(false);
+        }
+
+        public void Enable()
+        {
+            gameObject.SetActive(true);
+        }
 
         private void OnTriggerEnter(Collider other)
         {
             Debug.LogWarning("ENTERD");
-            if (_inInteractionProcess)
+            if (_inZone)
             {
                 return;
             }
-            
-            _inInteractionProcess = true;
-            EnterInteraction?.Invoke(other.TryGetComponent(out IInteractor interactor) 
-                                     && ValidateInteractable(interactor.InteractorType));
+
+            if (other.TryGetComponent(out IInteractor interactor)&&ValidateInteractable(interactor.InteractorType))
+            {
+                EnterInteractionZone?.Invoke(interactor);
+                CurrentInteractor = interactor;
+                _inZone = true;
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (!_inInteractionProcess)
+            if (!_inZone)
             {
                 return;
             }
@@ -40,16 +58,11 @@ namespace Interactables
 
         private void OnExit()
         {
-            ExitInteraction?.Invoke();
-            _inInteractionProcess = false;
+            ExitInteractionZone?.Invoke();
+            CurrentInteractor = null;
+            _inZone = false;
         }
         
-        public void Disable()
-        {
-            OnExit();
-            gameObject.SetActive(false);
-        }
-
         private bool ValidateInteractable(InteractorType interactorType)
         {
             return _allowedInteractors.Contains(interactorType);
