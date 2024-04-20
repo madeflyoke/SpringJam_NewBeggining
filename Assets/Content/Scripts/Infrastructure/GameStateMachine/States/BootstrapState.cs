@@ -25,5 +25,7 @@ namespace SpringJam.Infrastructure.StateMachine
 
             gameStateMachine.Enter<GameplayState>();
         }
+
+        public async UniTask Exit() { }
     }
 }

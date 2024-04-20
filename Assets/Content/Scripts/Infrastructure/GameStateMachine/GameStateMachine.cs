@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace SpringJam.Infrastructure.StateMachine
 {
@@ -12,6 +11,8 @@ namespace SpringJam.Infrastructure.StateMachine
         private StateFactory stateFactory;
         private IState currentState;
 
+        public IState CurrentState => currentState;
+
         private GameStateMachine(StateFactory stateFactory)
         {
             registeredStates = new();
@@ -21,7 +22,7 @@ namespace SpringJam.Infrastructure.StateMachine
 
         public async void Enter<T>() where T : class, IState
         {
-            var newState = ChangeState<T>();
+            var newState = await ChangeState<T>();
 
             await newState.Enter();
         }
@@ -31,8 +32,15 @@ namespace SpringJam.Infrastructure.StateMachine
             registeredStates.Add(typeof(T), stateFactory.CreateState<T>());
         }
 
-        private T ChangeState<T>() where T : class, IState
+        private async UniTask<T> ChangeState<T>() where T : class, IState
         {
+            if (currentState is not null)
+            {
+                await currentState.Exit();
+
+                currentState = null;
+            }
+
             currentState = GetState<T>();
 
             return currentState as T;

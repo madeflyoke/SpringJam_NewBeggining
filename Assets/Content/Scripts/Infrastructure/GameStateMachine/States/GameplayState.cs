@@ -8,5 +8,7 @@ namespace SpringJam.Infrastructure.StateMachine
         {
 
         }
+
+        public async UniTask Exit() { }
     }
 }
