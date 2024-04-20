@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Player.Characters;
 using UnityEngine;
 
 namespace Player
@@ -14,43 +15,38 @@ namespace Player
         [SerializeField] private float groundCheckerRadius;
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private Transform ModelContainer;
-        public float speed;
-        public float jumpHeight;
+        private CharacterMotionData MotionData;
         public LookDirection LookDirection { get; private set; }
-        public MoveDirection MoveDirection { get; private set; }
         public bool directionLock;
         public bool jumpLook;
         public bool isEnabled;
         private bool isGrounded;
         private Vector3 velocity;
+
         public void Start()
         {
             LookDirection = LookDirection.Right;
-            MoveDirection = MoveDirection.Horizontal;
         }
 
-        public void UpdateMotionData(float newSpeed, float newJumpHeight)
-        {
-            speed = newSpeed;
-            jumpHeight = newJumpHeight;
-        }
+        public void UpdateMotionData(CharacterMotionData data)
+            => MotionData = data;
+           
 
         private void UpdateLookDirection(float direction)
         {
             var newDir = LookDirection;
-            float yRotation=0;
+            float yRotation = 0;
             if (direction > 0)
             {
                 newDir = LookDirection.Right;
                 yRotation = 0;
             }
-             
+
             if (direction < 0)
             {
                 newDir = LookDirection.Left;
                 yRotation = 180;
             }
-              
 
             if (newDir != LookDirection)
             {
@@ -60,65 +56,55 @@ namespace Player
                 LookDirectionChanged?.Invoke(LookDirection);
             }
         }
-        public void Move(Vector2 direction)
+
+        public void Move(float direction)
         {
-            if(!isEnabled) return;
-            
+            if (!isEnabled) return;
+
             if (!directionLock)
-                UpdateLookDirection(direction.x);
-            
-            switch (MoveDirection)
-            {
-                case MoveDirection.Horizontal:
-                    HorizontalMove(direction);
-                    break;
-                case MoveDirection.Vertical:
-                    VerticalMove(direction);
-                    break;
-            }
+                UpdateLookDirection(direction);
+            HorizontalMove(direction);
+        }
+
+        public void SetPosition(Vector3 position)
+        {
+            controller.enabled = false;
+            transform.position = position;
+            controller.enabled = true;
         }
 
         private void Update()
         {
-            if (MoveDirection != MoveDirection.Vertical)
-            {
-                isGrounded = Physics.CheckSphere(groundChecker.position, groundCheckerRadius, groundMask);
-                if (isGrounded && velocity.y < 0)
-                    velocity.y = -2f;
+            isGrounded = Physics.CheckSphere(groundChecker.position, groundCheckerRadius, groundMask);
+            if (isGrounded && velocity.y < 0)
+                velocity.y = -2f;
 
-                velocity.y += GRAVITY* Time.deltaTime;
-                controller.Move(velocity * Time.deltaTime);
-            }
+            velocity.y += GRAVITY * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
         }
 
-        private void HorizontalMove(Vector2 direction)
+        private void HorizontalMove(float direction)
         {
-            direction.y = 0;
-            controller.Move(direction * (speed * Time.deltaTime));
-        }
-
-        private void VerticalMove(Vector2 direction)
-        {
-            direction.x = 0;
-            controller.Move(direction * (speed * Time.deltaTime));
+            var motionDir = new Vector3(direction, 0, 0);
+            controller.Move(motionDir * (MotionData.Speed * Time.deltaTime));
         }
 
         public void Jump()
         {
-            if(!isEnabled) return;
-            if(jumpLook) return;
+            if (!isEnabled) return;
+            if (jumpLook) return;
 
             if (isGrounded)
             {
-                velocity.y = Mathf.Sqrt(jumpHeight * -2 * GRAVITY);
-                controller.Move(velocity *  Time.deltaTime);
+                velocity.y = Mathf.Sqrt(MotionData.JumpHeigh * -2 * GRAVITY);
+                controller.Move(velocity * Time.deltaTime);
             }
         }
 
         private void OnDrawGizmos()
         {
-            if(groundChecker==null) return;
-            
+            if (groundChecker == null) return;
+
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(groundChecker.position, groundCheckerRadius);
         }
@@ -128,11 +114,5 @@ namespace Player
     {
         Left,
         Right
-    }
-    
-    public enum MoveDirection
-    {
-        Horizontal,
-        Vertical
     }
 }

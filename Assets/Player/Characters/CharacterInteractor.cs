@@ -1,4 +1,3 @@
-using System;
 using Interactables.Interfaces;
 using UnityEngine;
 

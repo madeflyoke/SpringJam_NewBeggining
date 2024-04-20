@@ -238,7 +238,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstCharacter: {fileID: 1893964435}
   secondCharacter: {fileID: 442757549}
-  teamUpDistance: 2
+  teamUpDistance: 2.5
+  distanceBetweenChars: 1
+  CharacterZOffset: -0.5
+  MotionConfig: {fileID: 11400000, guid: 4f7a56877ff431b4fae0666ce4372dd8, type: 2}
 --- !u!4 &76712725
 Transform:
   m_ObjectHideFlags: 0
@@ -473,13 +476,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundChecker: {fileID: 1977676025}
   controller: {fileID: 442757547}
-  groundCheckerRadius: 0.15
+  groundCheckerRadius: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 55
   ModelContainer: {fileID: 1073450573}
-  speed: 2
-  jumpHeight: 2
   directionLock: 0
   jumpLook: 0
   isEnabled: 0
@@ -997,13 +998,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundChecker: {fileID: 745045262}
   controller: {fileID: 1893964430}
-  groundCheckerRadius: 0.15
+  groundCheckerRadius: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 55
   ModelContainer: {fileID: 46309082}
-  speed: 2
-  jumpHeight: 2
   directionLock: 0
   jumpLook: 0
   isEnabled: 0

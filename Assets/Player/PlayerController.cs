@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Player.Characters;
 using UnityEngine;
 
 namespace Player
@@ -8,45 +10,48 @@ namespace Player
         [SerializeField] private Character firstCharacter;
         [SerializeField] private Character secondCharacter;
         [SerializeField] private float teamUpDistance;
-        private Character currentCharacter;
+        [SerializeField] private float distanceBetweenChars;
+        [SerializeField] private float CharacterZOffset;
+        [SerializeField] private CharacterMotionConfig MotionConfig;
+        private Dictionary<CharacterType, Character> Characters;
+        private CharacterType currentCharacter = CharacterType.DEFAULT;
         private bool isTeamUp;
-        private Vector2 axis;
+        private float HorizontalAxis;
 
-        public void SwitchCharacter(Character nextchar)
+        public void Init()
         {
-            if (currentCharacter != nextchar)
+            Characters = new Dictionary<CharacterType, Character>()
             {
-                if (!isTeamUp)
-                {
-                    DisableCharacter(currentCharacter);
-                    EnableCharacter(nextchar, true);
-                }
-                
-                currentCharacter = nextchar;
-            }
+                {CharacterType.Strongman, firstCharacter},
+                {CharacterType.Trickster, secondCharacter},
+            };
+            Characters[CharacterType.Strongman].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.DEFAULT));
+            Characters[CharacterType.Trickster].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.DEFAULT));
+            EnableCharacter(firstCharacter);
+            EnableCharacter(secondCharacter);
+            SwitchCharacter(CharacterType.Strongman);
+            SetDistanceBetweenCharacters();
         }
 
         public void Start()
         {
             isTeamUp = true;
-            EnableCharacter(firstCharacter);
-            EnableCharacter(secondCharacter);
-            SwitchCharacter(firstCharacter);
+            Init();
         }
 
         public void Update()
         {
             //DEBUG INPUT
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                SwitchCharacter(firstCharacter);
+                SwitchCharacter(CharacterType.Strongman);
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                SwitchCharacter(secondCharacter);
+                SwitchCharacter(CharacterType.Trickster);
             if (Input.GetKeyDown(KeyCode.R))
                 ChangeTeamStatus();
 
-            axis.x = Input.GetAxisRaw("Horizontal");
-            axis.y = Input.GetAxisRaw("Vertical");
-            if(axis!=Vector2.zero)
+            HorizontalAxis = Input.GetAxisRaw("Horizontal");
+        
+            if(HorizontalAxis!=0)
                 ApplyMoving();
             if (Input.GetKeyDown(KeyCode.Space))
                 ApplyJump();
@@ -56,11 +61,11 @@ namespace Player
         {
             if (isTeamUp)
             {
-                firstCharacter.MovementComponent.Move(axis);
-                secondCharacter.MovementComponent.Move(axis);
+                firstCharacter.MovementComponent.Move(HorizontalAxis);
+                secondCharacter.MovementComponent.Move(HorizontalAxis);
             }
             else
-                currentCharacter.MovementComponent.Move(axis);
+                Characters[currentCharacter].MovementComponent.Move(HorizontalAxis);
         }
 
         private void ApplyJump()
@@ -71,7 +76,29 @@ namespace Player
                 secondCharacter.MovementComponent.Jump();
             }
             else
-                currentCharacter.MovementComponent.Jump();
+                Characters[currentCharacter].MovementComponent.Jump();
+        }
+        
+        public void SwitchCharacter(CharacterType nextCharacter)
+        {
+            if (currentCharacter != nextCharacter)
+            {
+                if (!isTeamUp)
+                {
+                    DisableCharacter(Characters[currentCharacter]);
+                    EnableCharacter(Characters[nextCharacter], true);
+                   
+                }
+                
+                currentCharacter = nextCharacter;
+                var otherCharacter = GetOtherCharacterTypeType();
+                var posOfCurrent = Characters[currentCharacter].transform.position;
+                var posOfOther = Characters[otherCharacter].transform.position;
+                posOfCurrent.z =CharacterZOffset;
+                posOfOther.z=-CharacterZOffset;
+                Characters[currentCharacter].MovementComponent.SetPosition(posOfCurrent);
+                Characters[otherCharacter].MovementComponent.SetPosition(posOfOther);
+            }
         }
 
         private void ChangeTeamStatus()
@@ -82,9 +109,12 @@ namespace Player
                     Vector3.Distance(firstCharacter.transform.position, secondCharacter.transform.position);
                 if (distBetween <= teamUpDistance)
                 {
+                    SetDistanceBetweenCharacters();
                     isTeamUp = true;
                     EnableCharacter(firstCharacter);
                     EnableCharacter(secondCharacter);
+                    Characters[CharacterType.Strongman].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.DEFAULT));
+                    Characters[CharacterType.Trickster].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.DEFAULT));
                 }
             }
             else
@@ -92,26 +122,37 @@ namespace Player
                 isTeamUp = !isTeamUp;
                 DisableCharacter(firstCharacter);
                 DisableCharacter(secondCharacter);
-                EnableCharacter(currentCharacter, true);
+                EnableCharacter(Characters[currentCharacter], true);
+                Characters[CharacterType.Strongman].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.Strongman));
+                Characters[CharacterType.Trickster].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.Trickster));
             }
         }
 
-        private void OnDrawGizmos()
+        private void SetDistanceBetweenCharacters()
         {
-            if(currentCharacter==null) return;
-            Gizmos.color = Color.red;
+           
+            var otherCharacter = GetOtherCharacterTypeType();
 
-            if (!isTeamUp)
-            {
-                var distBetween =
-                    Vector3.Distance(firstCharacter.transform.position, secondCharacter.transform.position);
-                if (distBetween <= teamUpDistance)
-                {
-                    var pos = currentCharacter.transform.position;
-                    pos.y += 2;
-                    Gizmos.DrawSphere(pos, 0.2f);
-                }
-            }
+            var posOfCurrent = Characters[currentCharacter].transform.position;
+            var posOfOther = Characters[otherCharacter].transform.position;
+           
+
+            float newXValue;
+            if (posOfCurrent.x > posOfOther.x)
+                newXValue = posOfCurrent.x - distanceBetweenChars;
+            else
+                newXValue = posOfCurrent.x + distanceBetweenChars;
+            
+            Characters[otherCharacter].MovementComponent.SetPosition(new Vector3(newXValue,posOfOther.y,posOfOther.z));
+           
+        }
+
+        private CharacterType GetOtherCharacterTypeType()
+        {
+            CharacterType otherCharacter;
+            if (currentCharacter == CharacterType.Strongman) otherCharacter = CharacterType.Trickster;
+            else otherCharacter = CharacterType.Strongman;
+            return otherCharacter;
         }
 
         private void EnableCharacter(Character character, bool interactorStatus = false)
@@ -128,6 +169,24 @@ namespace Player
             character.MovementComponent.directionLock = true;
             character.MovementComponent.jumpLook = true;
             character.MovementComponent.isEnabled = false;
+        }
+        
+        private void OnDrawGizmos()
+        {
+            if(currentCharacter==CharacterType.DEFAULT) return;
+            Gizmos.color = Color.red;
+
+            if (!isTeamUp)
+            {
+                var distBetween =
+                    Vector3.Distance(firstCharacter.transform.position, secondCharacter.transform.position);
+                if (distBetween <= teamUpDistance)
+                {
+                    var pos = Characters[currentCharacter].transform.position;
+                    pos.y += 2;
+                    Gizmos.DrawSphere(pos, 0.2f);
+                }
+            }
         }
     }
 }
