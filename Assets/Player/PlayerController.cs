@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Player.Characters;
+using Player.InputService;
 using UnityEngine;
 
 namespace Player
@@ -13,10 +14,12 @@ namespace Player
         [SerializeField] private float distanceBetweenChars;
         [SerializeField] private float CharacterZOffset;
         [SerializeField] private CharacterMotionConfig MotionConfig;
+        [SerializeField] private InputHandler Input;
         private Dictionary<CharacterType, Character> Characters;
         private CharacterType currentCharacter = CharacterType.DEFAULT;
         private bool isTeamUp;
-        private float HorizontalAxis;
+        public bool isEnabled;
+        
 
         public void Init()
         {
@@ -31,41 +34,52 @@ namespace Player
             EnableCharacter(secondCharacter);
             SwitchCharacter(CharacterType.Strongman);
             SetDistanceBetweenCharacters();
+            SubscribeOnInputEvents();
+        }
+
+
+        private void SubscribeOnInputEvents()
+        {
+            Input.SubscribeOnInputEvent(KeysEventType.Jump, ApplyJump);
+            Input.SubscribeOnInputEvent(KeysEventType.SelectFirst, ()=> SwitchCharacter(CharacterType.Strongman));
+            Input.SubscribeOnInputEvent(KeysEventType.SelectSecond, ()=> SwitchCharacter(CharacterType.Trickster));
+            Input.SubscribeOnInputEvent(KeysEventType.ChangeTeamStatus, ChangeTeamStatus);
+        }
+
+        private void RemoveInputEvents()
+        {
+            Input.UnsubscribeFromInputEvent(KeysEventType.Jump, ApplyJump);
+            Input.SubscribeOnInputEvent(KeysEventType.ChangeTeamStatus, ChangeTeamStatus);
+            Input.ClearEventHandlerOn(KeysEventType.SelectFirst);
+            Input.ClearEventHandlerOn(KeysEventType.SelectSecond);
         }
 
         public void Start()
         {
             isTeamUp = true;
             Init();
+            Input.Enable();
+            isEnabled = true;
         }
 
         public void Update()
         {
-            //DEBUG INPUT
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                SwitchCharacter(CharacterType.Strongman);
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-                SwitchCharacter(CharacterType.Trickster);
-            if (Input.GetKeyDown(KeyCode.R))
-                ChangeTeamStatus();
-
-            HorizontalAxis = Input.GetAxisRaw("Horizontal");
-        
-            if(HorizontalAxis!=0)
+            if (isEnabled)
                 ApplyMoving();
-            if (Input.GetKeyDown(KeyCode.Space))
-                ApplyJump();
         }
 
         private void ApplyMoving()
         {
+            float horizontalDirection = Input.GetAxisRaw().x;
+            if(horizontalDirection==0) return;
+            
             if (isTeamUp)
             {
-                firstCharacter.MovementComponent.Move(HorizontalAxis);
-                secondCharacter.MovementComponent.Move(HorizontalAxis);
+                firstCharacter.MovementComponent.Move(horizontalDirection);
+                secondCharacter.MovementComponent.Move(horizontalDirection);
             }
             else
-                Characters[currentCharacter].MovementComponent.Move(HorizontalAxis);
+                Characters[currentCharacter].MovementComponent.Move(horizontalDirection);
         }
 
         private void ApplyJump()
@@ -130,12 +144,10 @@ namespace Player
 
         private void SetDistanceBetweenCharacters()
         {
-           
             var otherCharacter = GetOtherCharacterTypeType();
 
             var posOfCurrent = Characters[currentCharacter].transform.position;
             var posOfOther = Characters[otherCharacter].transform.position;
-           
 
             float newXValue;
             if (posOfCurrent.x > posOfOther.x)
