@@ -14,6 +14,7 @@ namespace Interactables
         protected override void Interact()
         {
             InteractionZone.Disable(true);
+            StopCatchingKey();
             
             var finalRot = (_backwardFallSide ? -transform.right : transform.right) * 90f;
             _bottomPivot.DORotate(finalRot,_speed).SetEase(Ease.InQuad);

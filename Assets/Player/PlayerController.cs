@@ -116,7 +116,6 @@ namespace Player
 
         private void EnableCharacter(Character character, bool interactorStatus = false)
         {
-            character.Interactor.isEnabled = interactorStatus;
             character.MovementComponent.directionLock = false;
             character.MovementComponent.jumpLook = false;
             character.MovementComponent.isEnabled = true;
@@ -124,7 +123,6 @@ namespace Player
         
         private void DisableCharacter(Character character)
         {
-            character.Interactor.isEnabled = false;
             character.MovementComponent.directionLock = true;
             character.MovementComponent.jumpLook = true;
             character.MovementComponent.isEnabled = false;

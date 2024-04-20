@@ -39,21 +39,25 @@ namespace Interactables
 
         private async void ProcessCatchingKey()
         {
+            _cts?.Cancel();
             _cts = new CancellationTokenSource();
 
-            while (Input.GetKeyDown(KeyCode.E)==false)
+            while (true)
             {
                 var isCanceled = await UniTask.Yield(_cts.Token).SuppressCancellationThrow();
                 if (isCanceled)
                 {
                     return;
                 }
+                
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    OnKeyCaught();
+                }
             }
-            
-            OnKeyCaught();
         }
 
-        private void StopCatchingKey()
+        protected void StopCatchingKey()
         {
             _cts?.Cancel();
         }

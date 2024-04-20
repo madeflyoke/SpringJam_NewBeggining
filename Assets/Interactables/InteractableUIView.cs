@@ -11,7 +11,7 @@ namespace Interactables
         {
             HideButtonInfo();
         }
-        
+
         public void ShowButtonInfo()
         {
             _buttonInfoTr.gameObject.SetActive(true);
@@ -21,6 +21,5 @@ namespace Interactables
         {
             _buttonInfoTr.gameObject.SetActive(false);
         }
-        
     }
 }

@@ -9,11 +9,14 @@ namespace Player
         private const float GRAVITY = -9.81f;
         public event Action<LookDirection> LookDirectionChanged;
         public event Action<LookDirection> MoveDirectionChanged;
+        
         [SerializeField] private Transform groundChecker;
         [SerializeField] private CharacterController controller;
         [SerializeField] private float groundCheckerRadius;
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private Transform ModelContainer;
+        public Vector3 ControllerVelocity => controller.velocity;
+        
         public float speed;
         public float jumpHeight;
         public LookDirection LookDirection { get; private set; }
@@ -23,6 +26,7 @@ namespace Player
         public bool isEnabled;
         private bool isGrounded;
         private Vector3 velocity;
+        
         public void Start()
         {
             LookDirection = LookDirection.Right;

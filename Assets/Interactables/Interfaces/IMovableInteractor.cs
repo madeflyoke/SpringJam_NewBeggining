@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Interactables.Interfaces
 {
-   public interface IInteractor
+   public interface IMovableInteractor
    {
-      public Transform SelfTransform { get; }
+      public Vector3 CurrentVelocity { get; }
 
       public InteractorType InteractorType { get; }
    }

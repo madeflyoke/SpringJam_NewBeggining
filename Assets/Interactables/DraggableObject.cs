@@ -33,12 +33,9 @@ namespace Interactables
                 Release();
             }
         }
-
+        
         private async void Drag()
         {
-            var interactorTr = InteractionZone.CurrentInteractor.SelfTransform;
-            
-            var distanceBetweenInteractor = interactorTr.position.x - transform.position.x;
             _cts = new CancellationTokenSource();
             
             while (true)
@@ -49,23 +46,24 @@ namespace Interactables
                     Release();
                     return;
                 }
-                
-                var correctedPos = transform.position;
-                correctedPos.x = interactorTr.position.x - distanceBetweenInteractor;
-                
-                if (Vector3.Distance(correctedPos, _originalPoint)>=_breakDistance)
+
+                if (Vector3.Distance(_rb.position, _originalPoint)>=_breakDistance)
                 {
+                    var clampedPos = _rb.position;
+                    clampedPos.x -= 0.1f * Mathf.Sign(Vector3.Dot(_originalPoint.normalized - transform.position.normalized, Vector3.left));
+                    _rb.position = clampedPos;
                     Release();
                     return;
                 }
-                
-                _rb.MovePosition(correctedPos);
+
+                _rb.velocity = InteractionZone.CurrentInteractor.CurrentVelocity;
             }
         }
 
         private void Release()
         {
             _cts?.Cancel();
+            _rb.velocity = Vector3.zero;
             InteractionZone.Enable();
             OnEnterInteractionZone();
             _isDragging = false;

@@ -8,7 +8,7 @@ namespace Interactables
 {
     public class InteractionZone : MonoBehaviour
     {
-        public IInteractor CurrentInteractor { get; private set; }
+        public IMovableInteractor CurrentInteractor { get; private set; }
         
         public event Action EnterInteractionZone;
         public event Action ExitInteractionZone;
@@ -26,18 +26,22 @@ namespace Interactables
 
         public void Enable()
         {
-            gameObject.SetActive(true);
+            if (gameObject!=null)
+            {
+                gameObject.SetActive(true);
+            }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.LogWarning("ENTERD");
             if (CurrentInteractor!=null)
             {
                 return;
             }
+            
+            Debug.LogWarning("ENTERD");
 
-            if (other.TryGetComponent(out IInteractor interactor)&&ValidateInteractable(interactor.InteractorType))
+            if (other.TryGetComponent(out IMovableInteractor interactor)&&ValidateInteractable(interactor.InteractorType))
             {
                 CurrentInteractor = interactor;
                 EnterInteractionZone?.Invoke();
