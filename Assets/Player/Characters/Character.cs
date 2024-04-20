@@ -18,6 +18,7 @@ namespace Player
 
     public enum CharacterType
     {
+        DEFAULT,
         Strongman,
         Trickster
     }
