@@ -120,8 +120,9 @@ namespace Content.Scripts.Game.Player
                 var otherCharacter = GetOtherCharacterTypeType();
                 var posOfCurrent = Characters[currentCharacter].transform.position;
                 var posOfOther = Characters[otherCharacter].transform.position;
-                
-                
+
+                posOfCurrent.z = startPosition.z;
+                posOfOther.z += TeamConfig.CharacterZOffset;
                 
                 Characters[currentCharacter].MovementComponent.SetPosition(posOfCurrent);
                 Characters[otherCharacter].MovementComponent.SetPosition(posOfOther);

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TeamUpDistance: 2.5
   DistanceBetweenChars: 1
-  CharacterZOffset: -0.25
+  CharacterZOffset: 0.25
