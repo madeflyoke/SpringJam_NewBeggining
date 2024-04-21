@@ -1,22 +1,21 @@
+using Content.Scripts.Game.UI;
 using Cysharp.Threading.Tasks;
-using Main.Scripts.UI;
 
 namespace SpringJam.Infrastructure.StateMachine
 {
     public class ComicsState : IState
     {
-        private PrologueComics prologue;
+        private UiContainer uiContainer;
         private GameStateMachine machine;
-        public ComicsState(PrologueComics prologue, GameStateMachine machine)
+        public ComicsState(UiContainer uiContainer, GameStateMachine machine)
         {
-            this.prologue = prologue;
+            this.uiContainer = uiContainer;
             this.machine = machine;
         }
         public async UniTask Enter()
         {
-            prologue.OnPrologueEnd += SwitchToGameplayState;
-            prologue.Show();
-            
+            uiContainer.PrologueScreen.OnPrologueEnd += SwitchToGameplayState;
+            uiContainer.PrologueScreen.Show();
         }
 
         private void SwitchToGameplayState()
@@ -26,7 +25,7 @@ namespace SpringJam.Infrastructure.StateMachine
 
         public async UniTask Exit()
         {
-            prologue.OnPrologueEnd -= SwitchToGameplayState;
+            uiContainer.PrologueScreen.OnPrologueEnd += SwitchToGameplayState;
         }
     }
 }

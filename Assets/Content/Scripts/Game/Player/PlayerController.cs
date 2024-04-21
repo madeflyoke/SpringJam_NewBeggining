@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Content.Scripts.Game.InputService;
 using Content.Scripts.Game.Player.Characters;
 using UnityEngine;
+using Zenject;
 
 namespace Content.Scripts.Game.Player
 {
@@ -9,17 +10,15 @@ namespace Content.Scripts.Game.Player
     {
         [SerializeField] private Character firstCharacter;
         [SerializeField] private Character secondCharacter;
-        [SerializeField] private float teamUpDistance;
-        [SerializeField] private float distanceBetweenChars;
-        [SerializeField] private float CharacterZOffset;
-        [SerializeField] private CharacterMotionConfig MotionConfig;
-        [SerializeField] private InputHandler Input;
+        [Inject] private CharacterMotionConfig MotionConfig;
+        [Inject] private InputHandler Input;
+        [Inject] private CharacterTeamConfig TeamConfig;
         private Dictionary<CharacterType, Character> Characters;
         private CharacterType currentCharacter = CharacterType.DEFAULT;
         private bool isTeamUp;
         public bool isEnabled;
+        public Vector3 startPosition;
         
-
         public void Init()
         {
             Characters = new Dictionary<CharacterType, Character>()
@@ -27,15 +26,18 @@ namespace Content.Scripts.Game.Player
                 {CharacterType.Strongman, firstCharacter},
                 {CharacterType.Trickster, secondCharacter},
             };
-            Characters[CharacterType.Strongman].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.DEFAULT));
-            Characters[CharacterType.Trickster].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.DEFAULT));
-            EnableCharacter(firstCharacter);
-            EnableCharacter(secondCharacter);
-            SwitchCharacter(CharacterType.Strongman);
-            SetDistanceBetweenCharacters();
-            SubscribeOnInputEvents();
+            UpdateCharacterStats();
+            currentCharacter = CharacterType.Strongman;
+            isTeamUp = true;
         }
 
+        public void SpawnCharacter(Vector3 SpawnPosition)
+        {
+            startPosition = SpawnPosition;
+            Characters[currentCharacter].MovementComponent.SetPosition(SpawnPosition);
+            var secondCharPos = SpawnPosition + new Vector3(0, 0, TeamConfig.CharacterZOffset);
+            Characters[GetOtherCharacterTypeType()].MovementComponent.SetPosition(secondCharPos);
+        }
 
         private void SubscribeOnInputEvents()
         {
@@ -53,12 +55,24 @@ namespace Content.Scripts.Game.Player
             Input.ClearEventHandlerOn(KeysEventType.SelectSecond);
         }
 
-        public void Start()
+        public void Enable()
         {
-            isTeamUp = true;
-            Init();
-            Input.Enable();
             isEnabled = true;
+            SubscribeOnInputEvents();
+            EnableCharacter(firstCharacter);
+            EnableCharacter(secondCharacter);
+            SwitchCharacter(currentCharacter);
+            SetDistanceBetweenCharacters();
+            Input.Enable();
+        }
+        
+        public void Disable()
+        {
+            isEnabled = false;
+            DisableCharacter(firstCharacter);
+            DisableCharacter(secondCharacter);
+            RemoveInputEvents();
+            Input.Disable();
         }
 
         public void Update()
@@ -100,15 +114,15 @@ namespace Content.Scripts.Game.Player
                 {
                     DisableCharacter(Characters[currentCharacter]);
                     EnableCharacter(Characters[nextCharacter], true);
-                   
                 }
                 
                 currentCharacter = nextCharacter;
                 var otherCharacter = GetOtherCharacterTypeType();
                 var posOfCurrent = Characters[currentCharacter].transform.position;
                 var posOfOther = Characters[otherCharacter].transform.position;
-                posOfCurrent.z =CharacterZOffset;
-                posOfOther.z=-CharacterZOffset;
+                
+                
+                
                 Characters[currentCharacter].MovementComponent.SetPosition(posOfCurrent);
                 Characters[otherCharacter].MovementComponent.SetPosition(posOfOther);
             }
@@ -120,14 +134,13 @@ namespace Content.Scripts.Game.Player
             {
                 var distBetween =
                     Vector3.Distance(firstCharacter.transform.position, secondCharacter.transform.position);
-                if (distBetween <= teamUpDistance)
+                if (distBetween <= TeamConfig.TeamUpDistance)
                 {
                     SetDistanceBetweenCharacters();
                     isTeamUp = true;
                     EnableCharacter(firstCharacter);
                     EnableCharacter(secondCharacter);
-                    Characters[CharacterType.Strongman].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.DEFAULT));
-                    Characters[CharacterType.Trickster].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.DEFAULT));
+                    UpdateCharacterStats();
                 }
             }
             else
@@ -136,6 +149,19 @@ namespace Content.Scripts.Game.Player
                 DisableCharacter(firstCharacter);
                 DisableCharacter(secondCharacter);
                 EnableCharacter(Characters[currentCharacter], true);
+                UpdateCharacterStats(true);
+            }
+        }
+
+        private void UpdateCharacterStats(bool notDefault = false)
+        {
+            if (notDefault == false)
+            {
+                Characters[CharacterType.Strongman].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.DEFAULT));
+                Characters[CharacterType.Trickster].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.DEFAULT));
+            }
+            else
+            {
                 Characters[CharacterType.Strongman].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.Strongman));
                 Characters[CharacterType.Trickster].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.Trickster));
             }
@@ -150,12 +176,11 @@ namespace Content.Scripts.Game.Player
 
             float newXValue;
             if (posOfCurrent.x > posOfOther.x)
-                newXValue = posOfCurrent.x - distanceBetweenChars;
+                newXValue = posOfCurrent.x - TeamConfig.DistanceBetweenChars;
             else
-                newXValue = posOfCurrent.x + distanceBetweenChars;
+                newXValue = posOfCurrent.x + TeamConfig.DistanceBetweenChars;
             
             Characters[otherCharacter].MovementComponent.SetPosition(new Vector3(newXValue,posOfOther.y,posOfOther.z));
-           
         }
 
         private CharacterType GetOtherCharacterTypeType()
@@ -191,7 +216,7 @@ namespace Content.Scripts.Game.Player
             {
                 var distBetween =
                     Vector3.Distance(firstCharacter.transform.position, secondCharacter.transform.position);
-                if (distBetween <= teamUpDistance)
+                if (distBetween <= TeamConfig.TeamUpDistance)
                 {
                     var pos = Characters[currentCharacter].transform.position;
                     pos.y += 2;

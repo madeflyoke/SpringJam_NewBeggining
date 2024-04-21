@@ -23,10 +23,13 @@ namespace SpringJam.Infrastructure.StateMachine
 
         public void Initialize()
         {
+            
+            RegisterState<GamePrepareState>();
             RegisterState<ComicsState>();
             RegisterState<GameplayState>();
+            RegisterState<RestartState>();
 
-            Enter<ComicsState>();
+            Enter<GamePrepareState>();
         }
 
         public async void Enter<T>() where T : class, IState

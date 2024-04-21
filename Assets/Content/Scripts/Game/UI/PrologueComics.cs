@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Main.Scripts.UI
+namespace Content.Scripts.Game.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
     public class PrologueComics : MonoBehaviour
@@ -28,12 +28,6 @@ namespace Main.Scripts.UI
             textField.DOFade(0, 0);
             nextBTN.interactable = false;
         }
-
-        public void Start()
-        {
-            Show();
-        }
-        
 
         public void Show()
         {

@@ -1,21 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using Content.Scripts.Game.Level;
 using Cysharp.Threading.Tasks;
-using Unity.VisualScripting;
-using UnityEngine;
 
 namespace SpringJam.Infrastructure.StateMachine
 {
     public class GameplayState : IState
     {
-        public UniTask Enter()
+        private GameStateMachine machine;
+        private LevelLauncher levelLauncher;
+        public GameplayState(GameStateMachine machine, LevelLauncher levelLauncher)
         {
-            throw new System.NotImplementedException();
+            this.machine = machine;
+            this.levelLauncher = levelLauncher;
+        }
+        public async UniTask Enter()
+        {
+           levelLauncher.LaunchGameplay();
+           levelLauncher.OnPlayerFail += RestartFromLastCheckPoint;
         }
 
-        public UniTask Exit()
+        private void RestartFromLastCheckPoint()
         {
-            throw new System.NotImplementedException();
+            machine.Enter<RestartState>();
+        }
+
+        public async UniTask Exit()
+        {
+            levelLauncher.OnPlayerFail -= RestartFromLastCheckPoint;
         }
     }
 
