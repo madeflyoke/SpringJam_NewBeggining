@@ -16,16 +16,23 @@ namespace SpringJam.Infrastructure.StateMachine
         {
            levelLauncher.LaunchGameplay();
            levelLauncher.OnPlayerFail += RestartFromLastCheckPoint;
+           levelLauncher.OnPlayerFinish += FinishGame;
         }
 
         private void RestartFromLastCheckPoint()
         {
             machine.Enter<RestartState>();
         }
+        
+        private void FinishGame()
+        {
+            machine.Enter<FinishGameState>();
+        }
 
         public async UniTask Exit()
         {
             levelLauncher.OnPlayerFail -= RestartFromLastCheckPoint;
+            levelLauncher.OnPlayerFinish -= FinishGame;
         }
     }
 
