@@ -18,6 +18,8 @@ namespace SpringJam.Infrastructure.StateMachine
 
         public async UniTask Enter()
         {
+            Application.targetFrameRate = 60;
+            QualitySettings.vSyncCount = 1;
             levelLauncher.Init(() =>
             {
                 machine.Enter<ComicsState>();
