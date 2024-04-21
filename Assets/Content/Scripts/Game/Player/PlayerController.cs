@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Content.Scripts.Game.InputService;
 using Content.Scripts.Game.Player.Characters;
@@ -7,6 +8,8 @@ namespace Content.Scripts.Game.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        public event Action<Character> PlayerFocusedEvent;
+        
         [SerializeField] private Character firstCharacter;
         [SerializeField] private Character secondCharacter;
         [SerializeField] private float teamUpDistance;
@@ -111,6 +114,8 @@ namespace Content.Scripts.Game.Player
                 posOfOther.z=-CharacterZOffset;
                 Characters[currentCharacter].MovementComponent.SetPosition(posOfCurrent);
                 Characters[otherCharacter].MovementComponent.SetPosition(posOfOther);
+                
+                PlayerFocusedEvent?.Invoke(Characters[nextCharacter]);
             }
         }
 
