@@ -16,8 +16,9 @@ namespace Interactables
             InteractionZone.Disable(true);
             KeyCatcher.Disable();
             
-            var finalRot = (_backwardFallSide ? -transform.right : transform.right) * 90f;
-            _bottomPivot.DORotate(finalRot,_speed).SetEase(Ease.InQuad);
+            var finalRot = (_backwardFallSide ? transform.forward : -transform.forward) * 90f;
+            var addedRot = finalRot + _bottomPivot.eulerAngles;
+            _bottomPivot.DORotate(addedRot, _speed).SetEase(Ease.OutBounce,-1);
         }
     }
 }

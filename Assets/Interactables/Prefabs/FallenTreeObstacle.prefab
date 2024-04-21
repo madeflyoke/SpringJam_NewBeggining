@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3932077229020994737}
   - component: {fileID: 8245079572979852778}
   - component: {fileID: 5637163959075975394}
-  - component: {fileID: 7559172088132439669}
+  - component: {fileID: 4543598123084020055}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -116,8 +116,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7559172088132439669
-CapsuleCollider:
+--- !u!65 &4543598123084020055
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -134,10 +134,8 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1001 &2940087857850899208
 PrefabInstance:
@@ -217,6 +215,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1820496757036749351, guid: 9700f7443de19ee40ae843aef398c492, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2488356594663035937}
+    - targetCorrespondingSourceObject: {fileID: 1820496757036749351, guid: 9700f7443de19ee40ae843aef398c492, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7245691665945790566}
   m_SourcePrefab: {fileID: 100100000, guid: 9700f7443de19ee40ae843aef398c492, type: 3}
 --- !u!4 &2874223931450952597 stripped
 Transform:
@@ -240,12 +241,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b95a730a0f89444a4b5660b2f1ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionZone: {fileID: 4695762435000717889}
-  _interactableUIView: {fileID: 7514640800050232360}
-  _oneTimeInteractable: 1
+  InteractionZone: {fileID: 4695762435000717889}
+  InteractableUIView: {fileID: 7514640800050232360}
+  KeyCatcher: {fileID: 7245691665945790566}
   _bottomPivot: {fileID: 2904600649990765878}
   _backwardFallSide: 0
-  _speed: 3
+  _speed: 2.5
+--- !u!114 &7245691665945790566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3571071328222529839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8aefb9d830a9498799b45f1a5403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4695762435000717889 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7631342260565772617, guid: 9700f7443de19ee40ae843aef398c492, type: 3}

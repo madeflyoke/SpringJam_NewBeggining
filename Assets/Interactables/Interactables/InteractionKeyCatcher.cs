@@ -9,7 +9,7 @@ namespace Interactables
 
         public void Disable()
         {
-            gameObject.SetActive(false);
+            enabled = false;
         }
         
         private void Update()
