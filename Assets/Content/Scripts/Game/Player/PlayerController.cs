@@ -219,6 +219,7 @@ namespace Content.Scripts.Game.Player
             character.MovementComponent.directionLock = true;
             character.MovementComponent.jumpLook = true;
             character.MovementComponent.isEnabled = false;
+            character.MovementComponent.AnimationController.PlayIdle();
             character.SetSelected(false, false);
         }
         
