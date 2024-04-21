@@ -1,6 +1,6 @@
-using System;
 using DG.Tweening;
-using SpringJam.Game.Character;
+using SpringJam.Game.Characters;
+using System;
 using UnityEngine;
 
 namespace Content.Scripts.Game.Player.Characters

@@ -1,3 +1,5 @@
+using Content.Scripts.Game.Level;
+using Content.Scripts.Game.Player.Characters;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using UniRx.Triggers;
@@ -8,23 +10,27 @@ namespace SpringJam.Game.Traps
     public class FallenRocksTrap : MonoBehaviour
     {
         [SerializeField] private BoxCollider fallenTrigger;
-        [SerializeField] private SphereCollider rockTrigger;
         [SerializeField] private GameObject rock;
 
+        private PlayerFailTrigger failTrigger;
         private Vector3 rockStartPosition;
         private bool alreadyFall;
 
         private void Awake()
         {
+            failTrigger = rock.GetComponent<PlayerFailTrigger>();
             rockStartPosition = rock.transform.position;
 
             fallenTrigger.OnTriggerEnterAsObservable()
                 .Subscribe(OnFallenTriggerEnter)
                 .AddTo(this);
 
-            rockTrigger.OnCollisionEnterAsObservable()
-                .Subscribe(OnRockCollisionEnter)
-                .AddTo(this);
+            failTrigger.OnPlayerFail += ResetTrap;
+        }
+
+        private void OnDestroy()
+        {
+            failTrigger.OnPlayerFail -= ResetTrap;
         }
 
         public void ResetTrap()
@@ -42,22 +48,19 @@ namespace SpringJam.Game.Traps
                 return;
             }
 
+            if (IsCharacterEnterIn(collider.gameObject) == false)
+            {
+                return;
+            }
+
             alreadyFall = true;
 
             rock.gameObject.SetActive(true);
         }
 
-        private void OnRockCollisionEnter(Collision collision)
-        {
-            if (IsCharacterEnterIn(collision.gameObject))
-            {
-
-            }
-        }
-
         private bool IsCharacterEnterIn(GameObject player)
         {
-            return player.TryGetComponent(out Transform component);
+            return player.TryGetComponent(out Character _);
         }
     }
 }

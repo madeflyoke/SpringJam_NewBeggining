@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace SpringJam.Game.Character
+namespace SpringJam.Game.Characters
 {
     [RequireComponent(typeof(Animator), typeof(CharacterAnimationEventHandler))]
     public class CharacterAnimation : MonoBehaviour

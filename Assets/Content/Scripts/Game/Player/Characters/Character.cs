@@ -1,6 +1,5 @@
-using System;
 using Interactables.Interactors;
-using SpringJam.Game.Character;
+using System;
 using UniRx;
 using UnityEngine;
 

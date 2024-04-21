@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace SpringJam.Game.Character
+namespace SpringJam.Game.Characters
 {
     public class CharacterAnimationEventHandler : MonoBehaviour
     {
