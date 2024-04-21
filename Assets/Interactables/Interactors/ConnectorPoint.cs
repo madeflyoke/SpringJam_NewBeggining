@@ -6,7 +6,6 @@ namespace Interactables.Interactors
     public class ConnectorPoint : MonoBehaviour
     {
         [SerializeField] private ConfigurableJoint _connectionJoint;
-        
         private bool _connected;
         private Rigidbody _connectedRb;
         

@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 6755473203836783924}
   - component: {fileID: 7501483724989319028}
   - component: {fileID: 4978992180429713336}
-  - component: {fileID: 1026355633366302546}
   - component: {fileID: 8363238777532962740}
   m_Layer: 10
   m_Name: BaseCharacter
@@ -200,21 +199,6 @@ MonoBehaviour:
   directionLock: 0
   jumpLook: 0
   isEnabled: 0
---- !u!114 &1026355633366302546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2286394689620457844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b394acb1b261a1a4ca2704583c5e46ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ConnectorPoint>k__BackingField: {fileID: 7709698722456996136}
-  <InteractorType>k__BackingField: 0
-  _relatedCharacter: {fileID: 8363238777532962740}
 --- !u!114 &8363238777532962740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   movementComponent: {fileID: 4978992180429713336}
-  commonCharacterInteractor: {fileID: 1026355633366302546}
+  commonCharacterInteractor: {fileID: 2485749438536847386}
 --- !u!1 &6988402337627822445
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,11 +224,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7611926334045508278}
   - component: {fileID: 8334787477392304548}
-  - component: {fileID: 7709698722456996136}
   - component: {fileID: 5097268814401157376}
+  - component: {fileID: 7709698722456996136}
+  - component: {fileID: 2485749438536847386}
   - component: {fileID: 8340911765616512754}
   m_Layer: 10
-  m_Name: ConnectorPoint
+  m_Name: Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -292,19 +277,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 2
---- !u!114 &7709698722456996136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6988402337627822445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f169e6326496cd4db8af8fb28ac15ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _connectionJoint: {fileID: 8340911765616512754}
 --- !u!65 &5097268814401157376
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -324,8 +296,37 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.4, y: 1, z: 1}
+  m_Size: {x: 1.4, y: 0.3, z: 0.54}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7709698722456996136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988402337627822445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f169e6326496cd4db8af8fb28ac15ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _connectionJoint: {fileID: 8340911765616512754}
+--- !u!114 &2485749438536847386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988402337627822445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b394acb1b261a1a4ca2704583c5e46ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ConnectorPoint>k__BackingField: {fileID: 7709698722456996136}
+  <InteractorType>k__BackingField: 0
+  _relatedCharacter: {fileID: 8363238777532962740}
+  _interactionCol: {fileID: 5097268814401157376}
 --- !u!153 &8340911765616512754
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -338,7 +339,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 2.88, z: 0}
+  m_ConnectedAnchor: {x: 0.81173855, y: 2.8, z: 1.7754445}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 1

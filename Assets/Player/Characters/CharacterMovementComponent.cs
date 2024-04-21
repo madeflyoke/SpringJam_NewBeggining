@@ -18,10 +18,11 @@ namespace Player.Characters
         
         private CharacterMotionData MotionData;
         public LookDirection LookDirection { get; private set; }
+        public bool IsGrounded { get; private set; }
+
         public bool directionLock;
         public bool jumpLook;
         public bool isEnabled;
-        private bool isGrounded;
         private Vector3 velocity;
         
         public void Start()
@@ -76,8 +77,8 @@ namespace Player.Characters
 
         private void Update()
         {
-            isGrounded = Physics.CheckSphere(groundChecker.position, groundCheckerRadius, groundMask);
-            if (isGrounded && velocity.y < 0)
+            IsGrounded = Physics.CheckSphere(groundChecker.position, groundCheckerRadius, groundMask);
+            if (IsGrounded && velocity.y < 0)
                 velocity.y = -2f;
 
             velocity.y += GRAVITY * Time.deltaTime;
@@ -95,7 +96,7 @@ namespace Player.Characters
             if (!isEnabled) return;
             if (jumpLook) return;
 
-            if (isGrounded)
+            if (IsGrounded)
             {
                 velocity.y = Mathf.Sqrt(MotionData.JumpHeigh * -2 * GRAVITY);
                 controller.Move(velocity * Time.deltaTime);

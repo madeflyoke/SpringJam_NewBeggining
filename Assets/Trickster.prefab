@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trickster
       objectReference: {fileID: 0}
+    - target: {fileID: 2485749438536847386, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
+      propertyPath: <InteractorType>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6713190283690840156, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

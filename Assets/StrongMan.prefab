@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StrongMan
       objectReference: {fileID: 0}
+    - target: {fileID: 2485749438536847386, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
+      propertyPath: <InteractorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6755473203836783924, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

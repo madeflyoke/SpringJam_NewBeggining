@@ -1,9 +1,8 @@
 using System;
-using Interactables.Enums;
 using Interactables.Interactors;
-using Interactables.Interfaces;
 using Player.Characters;
 using UnityEngine;
+using UniRx;
 
 namespace Player
 {
@@ -14,12 +13,33 @@ namespace Player
         [SerializeField] private CommonCharacterInteractor commonCharacterInteractor;
         public CharacterType Type=>type;
         public CharacterMovementComponent MovementComponent=>movementComponent;
-        public bool IsSelected { get; set; }
+        public bool IsSelected { get; private set; }
+        private IDisposable _groundCheckerDisposable;
         
-
-        public void ResetInteractor()
+        private void OnEnable()
         {
-            commonCharacterInteractor.ResetInteractor();
+            _groundCheckerDisposable = movementComponent.ObserveEveryValueChanged(x => x.IsGrounded)
+                .Subscribe(SetInteractorActive);
+        }
+
+        private void OnDisable()
+        {
+            _groundCheckerDisposable?.Dispose();
+        }
+
+        public void SetSelected(bool isSelected)
+        {
+            IsSelected = isSelected;
+            SetInteractorActive(isSelected);
+        }
+
+        public void SetInteractorActive(bool isActive)
+        {
+            commonCharacterInteractor.SetActive(isActive);
+            if (isActive==false)
+            {
+                commonCharacterInteractor.ResetInteractor();
+            }
         }
     }
 
