@@ -225,7 +225,7 @@ MonoBehaviour:
   ProgressHandler: {fileID: 280101024}
   startPoint: {fileID: 365042905}
   FailTriggers: []
-  LevelFinishTrigger: {fileID: 0}
+  LevelFinishTrigger: {fileID: 1050870934}
 --- !u!1001 &97564788
 PrefabInstance:
   m_ObjectHideFlags: 0
