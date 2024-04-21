@@ -9,6 +9,7 @@ namespace SpringJam.Game
         public override void InstallBindings()
         {
             Container.Bind<ComicsState>().FromNew().AsSingle().NonLazy();
+            Container.Bind<GameplayState>().FromNew().AsSingle().NonLazy();
 
             Container.Bind<GameStateFactory>().FromNew().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<GameStateMachine>().FromNew().AsSingle().NonLazy();

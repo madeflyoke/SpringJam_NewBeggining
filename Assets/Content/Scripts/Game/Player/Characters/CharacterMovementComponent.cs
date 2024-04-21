@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Player.Characters
+namespace Content.Scripts.Game.Player.Characters
 {
     public class CharacterMovementComponent : MonoBehaviour
     {

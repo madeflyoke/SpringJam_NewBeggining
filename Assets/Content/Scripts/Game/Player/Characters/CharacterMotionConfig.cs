@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Player.Characters
+namespace Content.Scripts.Game.Player.Characters
 {
     [CreateAssetMenu(fileName = "CharacterMotionConfig",
         menuName = "ScriptableObjects/Configs/New CharacterMotionConfig", order = 1)]

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Player.InputService
+namespace Content.Scripts.Game.InputService
 {
     [CreateAssetMenu(fileName = "New InputConfig", menuName = "ScriptableObjects/Configs/Create Input Handler Config", order = 1)]
     public class InputConfig : ScriptableObject

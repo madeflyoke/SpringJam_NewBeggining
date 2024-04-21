@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
-using Player.Characters;
-using Player.InputService;
+using Content.Scripts.Game.InputService;
+using Content.Scripts.Game.Player.Characters;
 using UnityEngine;
 
-namespace Player
+namespace Content.Scripts.Game.Player
 {
     public class PlayerController : MonoBehaviour
     {

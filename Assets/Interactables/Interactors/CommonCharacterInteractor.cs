@@ -1,8 +1,7 @@
 using System;
+using Content.Scripts.Game.Player.Characters;
 using Interactables.Enums;
 using Interactables.Interfaces;
-using Player;
-using Player.Characters;
 using UnityEngine;
 
 namespace Interactables.Interactors
