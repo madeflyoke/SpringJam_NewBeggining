@@ -12,6 +12,7 @@ namespace SpringJam.Game
             Container.Bind<ComicsState>().FromNew().AsSingle().NonLazy();
             Container.Bind<GameplayState>().FromNew().AsSingle().NonLazy();
             Container.Bind<RestartState>().FromNew().AsSingle().NonLazy();
+            Container.Bind<FinishGameState>().FromNew().AsSingle().NonLazy();
            
 
             Container.Bind<GameStateFactory>().FromNew().AsSingle().NonLazy();

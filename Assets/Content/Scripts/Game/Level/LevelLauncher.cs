@@ -8,10 +8,12 @@ namespace Content.Scripts.Game.Level
     public class LevelLauncher : MonoBehaviour
     {
         public event Action OnPlayerFail;
+        public event Action OnPlayerFinish;
         [SerializeField] private PlayerController player;
         [SerializeField] private ProgressHandler.ProgressHandler ProgressHandler;
         [SerializeField] private Transform startPoint;
         [SerializeField] private List<PlayerFailTrigger> FailTriggers = new List<PlayerFailTrigger>();
+        [SerializeField] private LevelFinishTrigger LevelFinishTrigger;
 
         public void Init(Action OnInitialize = null)
         {
@@ -34,6 +36,8 @@ namespace Content.Scripts.Game.Level
             {
                 playerFailTrigger.OnPlayerFail += CatchPlayerFail;
             }
+
+            LevelFinishTrigger.OnPlayerWin += FinishGame;
         }
 
         private void CatchPlayerFail() => OnPlayerFail?.Invoke();
@@ -46,6 +50,12 @@ namespace Content.Scripts.Game.Level
             {
                 playerFailTrigger.OnPlayerFail -= CatchPlayerFail;
             }
+            LevelFinishTrigger.OnPlayerWin -= FinishGame;
+        }
+
+        private void FinishGame()
+        {
+            OnPlayerFinish?.Invoke();
         }
     }
 }
