@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Content.Scripts.Game.ProgressHandler;
 using UnityEngine;
 
 namespace Main.Scripts.ProgressHandler

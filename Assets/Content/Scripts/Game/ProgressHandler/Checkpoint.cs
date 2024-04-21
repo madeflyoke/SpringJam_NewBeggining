@@ -1,8 +1,8 @@
 using System;
-using Player;
+using Content.Scripts.Game.Player.Characters;
 using UnityEngine;
 
-namespace Main.Scripts.ProgressHandler
+namespace Content.Scripts.Game.ProgressHandler
 {
     public class Checkpoint : MonoBehaviour
     {

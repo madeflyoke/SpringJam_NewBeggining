@@ -24,6 +24,7 @@ namespace SpringJam.Infrastructure.StateMachine
         public void Initialize()
         {
             RegisterState<ComicsState>();
+            RegisterState<GameplayState>();
 
             Enter<ComicsState>();
         }

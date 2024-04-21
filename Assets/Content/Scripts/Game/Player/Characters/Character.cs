@@ -1,10 +1,9 @@
 using System;
 using Interactables.Interactors;
-using Player.Characters;
-using UnityEngine;
 using UniRx;
+using UnityEngine;
 
-namespace Player
+namespace Content.Scripts.Game.Player.Characters
 {
     public class Character : MonoBehaviour
     {

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
-namespace Player.InputService
+namespace Content.Scripts.Game.InputService
 {
     public class InputHandler : MonoBehaviour
     {
