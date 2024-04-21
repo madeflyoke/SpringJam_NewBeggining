@@ -11,12 +11,15 @@ namespace Content.Scripts.Game.ProgressHandler
         public Checkpoint LastCheckpoint { get; private set; }
         public bool isEnable;
 
-        public void Init()
+        public void Init(float startPointZ)
         {
             LastCheckpoint = null;
             foreach (var checkpoint in Checkpoints)
             {
                 checkpoint.OnPlayerReach += UpdateLastCheckpoint;
+                var pos = checkpoint.transform.position;
+                pos.z = startPointZ;
+                checkpoint.transform.position = pos;
             }
         }
 

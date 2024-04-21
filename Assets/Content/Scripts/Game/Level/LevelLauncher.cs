@@ -18,7 +18,7 @@ namespace Content.Scripts.Game.Level
         public void Init(Action OnInitialize = null)
         {
             ProgressHandler.StartPoint = startPoint;
-            ProgressHandler.Init();
+            ProgressHandler.Init(startPoint.position.z);
             player.Init();
             OnInitialize?.Invoke();
         }

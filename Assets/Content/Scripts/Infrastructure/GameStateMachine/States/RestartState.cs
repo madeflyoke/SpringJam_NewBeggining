@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Content.Scripts.Game.Level;
 using Content.Scripts.Game.UI;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace SpringJam.Infrastructure.StateMachine
 {
@@ -23,12 +20,10 @@ namespace SpringJam.Infrastructure.StateMachine
         public async UniTask Enter()
         {
             levelLauncher.Disable();
-            uiContainer.FadeScreen.Show(2, () =>
+            uiContainer.FadeScreen.Show(1, () =>
             {
-                uiContainer.FadeScreen.Hide(2, () =>
-                {
-                    machine.Enter<GameplayState>();
-                });
+                machine.Enter<GameplayState>();
+                uiContainer.FadeScreen.Hide(1);
             });
         }
 
