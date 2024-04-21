@@ -49,10 +49,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSourcePrefab: {fileID: 7175534800759119592}
-  _soundsVolume: 0.217
+  _soundsVolume: 0.15
   _clips:
   - SoundType: 1
-    Clip: {fileID: 8300000, guid: 32074fca44eace649a885ce0e7f5aaaf, type: 3}
+    Clips:
+    - {fileID: 8300000, guid: 055d3b4f4ee12a34e837f1261703644e, type: 3}
+    - {fileID: 8300000, guid: ea7026b9fb96c374994996dba54ba526, type: 3}
+    - {fileID: 8300000, guid: 35f5fb2541d6e124ba5e61b1b007a300, type: 3}
+    - {fileID: 8300000, guid: 2bdf0af42858712489d89032417482a0, type: 3}
   _mainMusicSource: {fileID: 145874923125651838}
   _musicClips: []
 --- !u!82 &145874923125651838

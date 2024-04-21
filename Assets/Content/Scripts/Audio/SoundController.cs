@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Lean.Pool;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Content.Audio
 {
@@ -27,10 +28,12 @@ namespace Content.Audio
             Destroy(gameObject);
         }
         
-        public void PlayClip(SoundType soundType, float customVolume = 0f, float customPitch = 1f)
+        public void PlayClip(SoundType soundType, float customVolume = 0f, float customPitch = 1f, bool isRandom = false)
         {
             var audioSource = LeanPool.Spawn(_audioSourcePrefab);
-            audioSource.clip = _clips.FirstOrDefault(x=>x.SoundType==soundType).Clip;
+            var clips = _clips.FirstOrDefault(x => x.SoundType == soundType).Clips;
+            
+            audioSource.clip = clips[isRandom? Random.Range(0, clips.Count-1) : 0];
             audioSource.volume = customVolume!=0f? customVolume: _soundsVolume;
             audioSource.pitch = customPitch;
             LeanPool.Despawn(audioSource, audioSource.clip.length);
@@ -41,7 +44,7 @@ namespace Content.Audio
         private struct ClipBySoundType
         {
             public SoundType SoundType;
-            public AudioClip Clip;
+            public List<AudioClip> Clips;
         }
     }
     

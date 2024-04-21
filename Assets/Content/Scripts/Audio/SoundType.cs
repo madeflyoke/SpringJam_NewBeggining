@@ -3,6 +3,7 @@ namespace Content.Audio
     public enum SoundType 
     {
         NONE =0,
-        STEP = 1,
+        STEP_SNOW = 1,
+        STEP_ROCK = 2,
     }
 }

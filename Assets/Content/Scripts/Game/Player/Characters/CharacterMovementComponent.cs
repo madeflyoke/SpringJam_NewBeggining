@@ -1,7 +1,9 @@
 using System;
+using Content.Audio;
 using DG.Tweening;
 using SpringJam.Game.Character;
 using UnityEngine;
+using Random = Unity.Mathematics.Random;
 
 namespace Content.Scripts.Game.Player.Characters
 {
@@ -106,18 +108,28 @@ namespace Content.Scripts.Game.Player.Characters
 
             if (IsGrounded)
             {
-                //animation.EventHandler.JumpEnd += DoJump;
                 animation.PlayJump();
                 velocity.y = Mathf.Sqrt(MotionData.JumpHeigh * -2 * GRAVITY);
                 controller.Move(velocity * Time.deltaTime);
             }
         }
 
-        private void DoJump()
+        private void OnEnable()
         {
-            animation.EventHandler.JumpEnd -= DoJump;
-            velocity.y = Mathf.Sqrt(MotionData.JumpHeigh * -2 * GRAVITY);
-            controller.Move(velocity * Time.deltaTime);
+            animation.EventHandler.Step += PlayStepSound;
+        }
+
+        private void OnDisable()
+        {
+            animation.EventHandler.Step -= PlayStepSound;
+        }
+
+        private void PlayStepSound()
+        {
+            if (IsGrounded)
+            {
+                SoundController.Instance?.PlayClip(SoundType.STEP_SNOW, isRandom:true);
+            }
         }
 
         private void OnDrawGizmos()

@@ -1,5 +1,7 @@
 using System;
+using Content.Audio;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace SpringJam.Game.Character
 {
