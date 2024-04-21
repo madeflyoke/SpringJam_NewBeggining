@@ -17,6 +17,8 @@ namespace Content.Scripts.Game.Player.Characters
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private Transform ModelContainer;
         [SerializeField] private CharacterAnimation animation;
+
+        public CharacterAnimation AnimationController => animation;
         
         private CharacterMotionData MotionData;
         public LookDirection LookDirection { get; private set; }
@@ -68,6 +70,7 @@ namespace Content.Scripts.Game.Player.Characters
             if (!directionLock)
                 UpdateLookDirection(direction);
             HorizontalMove(direction);
+            
             animation.PlayRunning();
         }
 
@@ -86,10 +89,8 @@ namespace Content.Scripts.Game.Player.Characters
                 velocity.y = -2f;
 
             velocity.y += GRAVITY * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
             
-            if(controller.velocity== Vector3.zero && groundChecker==true)
-                animation.PlayIdle();
+            controller.Move(velocity * Time.deltaTime);
         }
 
         private void HorizontalMove(float direction)

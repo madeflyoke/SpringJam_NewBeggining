@@ -87,7 +87,12 @@ namespace Content.Scripts.Game.Player
         private void ApplyMoving()
         {
             float horizontalDirection = Input.GetAxisRaw().x;
-            if(horizontalDirection==0) return;
+            if(horizontalDirection==0)
+            {
+                firstCharacter.MovementComponent.AnimationController.PlayIdle();
+                secondCharacter.MovementComponent.AnimationController.PlayIdle();
+                return;
+            }
             
             if (isTeamUp)
             {
