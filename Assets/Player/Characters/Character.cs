@@ -27,10 +27,10 @@ namespace Player
             _groundCheckerDisposable?.Dispose();
         }
 
-        public void SetSelected(bool isSelected)
+        public void SetSelected(bool isSelected, bool isCombined=false)
         {
             IsSelected = isSelected;
-            SetInteractorActive(isSelected);
+            SetInteractorActive(isCombined?!isSelected:isSelected);
         }
 
         private void SetInteractorActive(bool isActive)

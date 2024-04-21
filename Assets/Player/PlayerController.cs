@@ -100,7 +100,7 @@ namespace Player
                 if (!isTeamUp)
                 {
                     DisableCharacter(Characters[currentCharacter]);
-                    EnableCharacter(Characters[nextCharacter], true);
+                    EnableCharacter(Characters[nextCharacter]);
                    
                 }
                 
@@ -136,7 +136,7 @@ namespace Player
                 isTeamUp = !isTeamUp;
                 DisableCharacter(firstCharacter);
                 DisableCharacter(secondCharacter);
-                EnableCharacter(Characters[currentCharacter], true);
+                EnableCharacter(Characters[currentCharacter]);
                 Characters[CharacterType.Strongman].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.Strongman));
                 Characters[CharacterType.Trickster].MovementComponent.UpdateMotionData(MotionConfig.GetData(CharacterType.Trickster));
             }
@@ -167,12 +167,12 @@ namespace Player
             return otherCharacter;
         }
 
-        private void EnableCharacter(Character character, bool interactorStatus = false)
+        private void EnableCharacter(Character character)
         {
             character.MovementComponent.directionLock = false;
             character.MovementComponent.jumpLook = false;
             character.MovementComponent.isEnabled = true;
-            character.SetSelected(true);
+            character.SetSelected(true, isTeamUp);
         }
         
         private void DisableCharacter(Character character)
@@ -180,7 +180,7 @@ namespace Player
             character.MovementComponent.directionLock = true;
             character.MovementComponent.jumpLook = true;
             character.MovementComponent.isEnabled = false;
-            character.SetSelected(false);
+            character.SetSelected(false, false);
         }
         
         private void OnDrawGizmos()
