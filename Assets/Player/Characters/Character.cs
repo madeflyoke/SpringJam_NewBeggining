@@ -33,13 +33,9 @@ namespace Player
             SetInteractorActive(isSelected);
         }
 
-        public void SetInteractorActive(bool isActive)
+        private void SetInteractorActive(bool isActive)
         {
             commonCharacterInteractor.SetActive(isActive);
-            if (isActive==false)
-            {
-                commonCharacterInteractor.ResetInteractor();
-            }
         }
     }
 

@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connectionJoint: {fileID: 8340911765616512754}
+  _interactor: {fileID: 2485749438536847386}
 --- !u!114 &2485749438536847386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,8 +326,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ConnectorPoint>k__BackingField: {fileID: 7709698722456996136}
   <InteractorType>k__BackingField: 0
-  _relatedCharacter: {fileID: 8363238777532962740}
   _interactionCol: {fileID: 5097268814401157376}
+  _characterMovementComponent: {fileID: 4978992180429713336}
 --- !u!153 &8340911765616512754
 ConfigurableJoint:
   m_ObjectHideFlags: 0

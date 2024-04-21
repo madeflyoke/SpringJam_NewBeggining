@@ -46,6 +46,7 @@ namespace Interactables
             
             if (other.TryGetComponent(out IInteractor interactor) && interactor.IsActive && ValidateInteractable(interactor.InteractorType))
             {
+                Debug.LogWarning("YES");
                 _relatedInteractable.SetInteractor(interactor);
                 interactor.CurrentInteractable = _relatedInteractable;
                 EnterInteractionZone?.Invoke();

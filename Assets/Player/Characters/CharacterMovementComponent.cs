@@ -70,6 +70,7 @@ namespace Player.Characters
 
         public void SetPosition(Vector3 position)
         {
+            controller.Move(Vector3.down * Time.deltaTime * MotionData.Speed);
             controller.enabled = false;
             transform.position = position;
             controller.enabled = true;
