@@ -119,7 +119,7 @@ namespace Content.Scripts.Game.Player
                 if (!isTeamUp)
                 {
                     DisableCharacter(Characters[currentCharacter]);
-                    EnableCharacter(Characters[nextCharacter], true);
+                    EnableCharacter(Characters[nextCharacter]);
                 }
                 
                 currentCharacter = nextCharacter;
@@ -157,7 +157,7 @@ namespace Content.Scripts.Game.Player
                 isTeamUp = !isTeamUp;
                 DisableCharacter(firstCharacter);
                 DisableCharacter(secondCharacter);
-                EnableCharacter(Characters[currentCharacter], true);
+                EnableCharacter(Characters[currentCharacter]);
                 UpdateCharacterStats(true);
             }
         }
