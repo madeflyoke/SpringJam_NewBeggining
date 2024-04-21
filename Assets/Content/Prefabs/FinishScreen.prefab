@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1771843841098852680}
   - component: {fileID: 7627766158520977042}
   m_Layer: 5
-  m_Name: PrologueComics
+  m_Name: FinishScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,14 +69,9 @@ MonoBehaviour:
   fadeTime: 1
   content: {fileID: 3882257104656398352}
   Dialogs:
-  - "\u041D\u0430\u0441\u0442\u0430\u043B\u0438 \u0442\u044F\u0436\u0435\u043B\u044B\u0435
-    \u0432\u0440\u0435\u043C\u0435\u043D\u0438"
-  - "\u0412\u0435\u0441\u043D\u0430 \u043D\u0435 \u043D\u0430\u0441\u0442\u0443\u043F\u0438\u043B\u0430"
-  - "\u0414\u0435\u0440\u0435\u0432\u043D\u044F \u043E\u0442\u043F\u0440\u0430\u0432\u0438\u043B\u0430
-    \u0434\u0432\u0443\u0445 \u0445\u0440\u0430\u0431\u0440\u0435\u0446\u043E\u0432
-    \u0434\u0430\u0431\u044B \u0441\u043E\u0432\u0435\u0440\u0448\u0438\u0442\u044C
-    \u043F\u043E\u0434\u043D\u043E\u0448\u0435\u043D\u0438\u0435 \u0431\u043E\u0433\u0443
-    \u0432\u0435\u0441\u043D\u044B \u0438 \u0443\u0440\u043E\u0436\u0430\u044F"
+  - The brave men made an offering to the spirit of spring
+  - The Spirit appreciated their efforts
+  - And He gave them spring and a huge harvest
 --- !u!222 &1771843841098852680
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -507,7 +502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 80453a7e94a76544185dd474a9c7706f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9788841aea7020b4eb4cd076bdb48564, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
