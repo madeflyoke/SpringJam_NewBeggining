@@ -7,7 +7,7 @@ namespace Content.Scripts.Game.Player.Characters
 {
     public class CharacterMovementComponent : MonoBehaviour
     {
-        private const float GRAVITY = -9.81f;
+        private const float GRAVITY = -15f;
         public event Action<LookDirection> LookDirectionChanged;
         public event Action<LookDirection> MoveDirectionChanged;
         

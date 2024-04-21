@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CharacterTeamConfig
   m_EditorClassIdentifier: 
   TeamUpDistance: 2.5
-  DistanceBetweenChars: 1
+  DistanceBetweenChars: 3
   CharacterZOffset: 0.25

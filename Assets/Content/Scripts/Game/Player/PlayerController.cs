@@ -159,6 +159,7 @@ namespace Content.Scripts.Game.Player
                 DisableCharacter(secondCharacter);
                 EnableCharacter(Characters[currentCharacter]);
                 UpdateCharacterStats(true);
+                PlayerFocusedEvent?.Invoke(Characters[currentCharacter]);
             }
         }
 

@@ -101,6 +101,18 @@ PrefabInstance:
       propertyPath: <InteractorType>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1527768302960391719, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.268
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646226538476929462, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646226538476929462, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.09
+      objectReference: {fileID: 0}
     - target: {fileID: 2286394689620457844, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
       propertyPath: m_Name
       value: StrongMan
@@ -160,6 +172,10 @@ PrefabInstance:
     - target: {fileID: 6755473203836783924, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501483724989319028, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
+      propertyPath: m_Height
+      value: 2.56
       objectReference: {fileID: 0}
     - target: {fileID: 8363238777532962740, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
       propertyPath: type
