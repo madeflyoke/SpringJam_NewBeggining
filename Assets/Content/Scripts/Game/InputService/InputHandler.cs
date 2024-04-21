@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Content.Scripts.Game.InputService
 {
     public class InputHandler : MonoBehaviour
     {
-        [SerializeField] private InputConfig _inputConfig;
+        [Inject] private InputConfig _inputConfig;
         private Vector2 _axis = Vector2.zero;
         private ButtonPair[] _mouseButton;
         private ButtonPair[] _keyboardButtons;

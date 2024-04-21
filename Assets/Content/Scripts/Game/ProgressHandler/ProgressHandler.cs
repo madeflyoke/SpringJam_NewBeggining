@@ -1,14 +1,15 @@
 using System.Collections.Generic;
-using Content.Scripts.Game.ProgressHandler;
 using UnityEngine;
 
-namespace Main.Scripts.ProgressHandler
+namespace Content.Scripts.Game.ProgressHandler
 {
     public class ProgressHandler : MonoBehaviour
     {
-        [SerializeField] private Transform StartPoint;
+      
         [SerializeField] private List<Checkpoint> Checkpoints= new List<Checkpoint>();
+        public Transform StartPoint;
         public Checkpoint LastCheckpoint { get; private set; }
+        public bool isEnable;
 
         public void Init()
         {
@@ -21,6 +22,7 @@ namespace Main.Scripts.ProgressHandler
 
         private void UpdateLastCheckpoint(Checkpoint reachedPoint)
         {
+            if(isEnable==false) return;
             if (LastCheckpoint == null)
                 LastCheckpoint = reachedPoint;
             else
