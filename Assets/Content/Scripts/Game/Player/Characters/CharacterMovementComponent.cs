@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using SpringJam.Game.Character;
 using UnityEngine;
 
 namespace Content.Scripts.Game.Player.Characters
@@ -15,6 +16,7 @@ namespace Content.Scripts.Game.Player.Characters
         [SerializeField] private float groundCheckerRadius;
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private Transform ModelContainer;
+        [SerializeField] private CharacterAnimation animation;
         
         private CharacterMotionData MotionData;
         public LookDirection LookDirection { get; private set; }
@@ -62,10 +64,11 @@ namespace Content.Scripts.Game.Player.Characters
         public void Move(float direction)
         {
             if (!isEnabled) return;
-
+            
             if (!directionLock)
                 UpdateLookDirection(direction);
             HorizontalMove(direction);
+            animation.PlayRunning();
         }
 
         public void SetPosition(Vector3 position)
@@ -84,6 +87,9 @@ namespace Content.Scripts.Game.Player.Characters
 
             velocity.y += GRAVITY * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
+            
+            if(controller.velocity== Vector3.zero && groundChecker==true)
+                animation.PlayIdle();
         }
 
         private void HorizontalMove(float direction)
@@ -99,9 +105,18 @@ namespace Content.Scripts.Game.Player.Characters
 
             if (IsGrounded)
             {
+                //animation.EventHandler.JumpEnd += DoJump;
+                animation.PlayJump();
                 velocity.y = Mathf.Sqrt(MotionData.JumpHeigh * -2 * GRAVITY);
                 controller.Move(velocity * Time.deltaTime);
             }
+        }
+
+        private void DoJump()
+        {
+            animation.EventHandler.JumpEnd -= DoJump;
+            velocity.y = Mathf.Sqrt(MotionData.JumpHeigh * -2 * GRAVITY);
+            controller.Move(velocity * Time.deltaTime);
         }
 
         private void OnDrawGizmos()

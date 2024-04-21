@@ -103,7 +103,10 @@ namespace Content.Scripts.Game.Player
                 secondCharacter.MovementComponent.Jump();
             }
             else
+            {
                 Characters[currentCharacter].MovementComponent.Jump();
+            }
+               
         }
         
         public void SwitchCharacter(CharacterType nextCharacter)
