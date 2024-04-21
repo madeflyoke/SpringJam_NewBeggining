@@ -3,6 +3,7 @@ using Cinemachine;
 using Content.Scripts.Game.Player;
 using Content.Scripts.Game.Player.Characters;
 using EasyButtons;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Content.Camera
@@ -39,7 +40,7 @@ namespace Content.Camera
             _playerController ??= FindObjectOfType<PlayerController>();
             var chars = FindObjectsOfType<Character>();
             _vcam1.Follow = chars[0].transform;
-            _vcam1.Follow = chars[1].transform;
+            _vcam2.Follow = chars[1].transform;
         }
         
 #endif
