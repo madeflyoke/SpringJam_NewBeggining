@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Content.Scripts.Game.Player;
 using UnityEngine;
+using Zenject;
 
 namespace Content.Scripts.Game.Level
 {

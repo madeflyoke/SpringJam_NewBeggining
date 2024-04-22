@@ -17,6 +17,7 @@ namespace SpringJam.Infrastructure.StateMachine
         public async UniTask Enter()
         {
             levelLauncher.Disable();
+            uiContainer.HUD.Hide();
             uiContainer.FinishComics.OnPrologueEnd += () =>
             {
                 Application.Quit();

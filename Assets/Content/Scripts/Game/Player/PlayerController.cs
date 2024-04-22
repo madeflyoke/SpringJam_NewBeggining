@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Content.Scripts.Game.InputService;
 using Content.Scripts.Game.Player.Characters;
+using Content.Scripts.Game.UI;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,7 @@ namespace Content.Scripts.Game.Player
         [Inject] private CharacterMotionConfig MotionConfig;
         [Inject] private InputHandler Input;
         [Inject] private CharacterTeamConfig TeamConfig;
+        [Inject] private UiContainer UiContainer;
         private Dictionary<CharacterType, Character> Characters;
         private CharacterType currentCharacter = CharacterType.DEFAULT;
         private bool isTeamUp;
@@ -32,6 +34,7 @@ namespace Content.Scripts.Game.Player
             UpdateCharacterStats();
             currentCharacter = CharacterType.Strongman;
             isTeamUp = true;
+            UiContainer.HUD.ShowByeBTN();
         }
 
         public void SpawnCharacter(Vector3 SpawnPosition)
@@ -142,6 +145,19 @@ namespace Content.Scripts.Game.Player
             }
         }
 
+        public void FixedUpdate()
+        {
+            if (!isTeamUp)
+            {
+                var distBetween =
+                    Vector3.Distance(firstCharacter.transform.position, secondCharacter.transform.position);
+                if (distBetween <= TeamConfig.TeamUpDistance)
+                    UiContainer.HUD.ShowTeamUp();
+                else
+                    UiContainer.HUD.HideTeamUp();
+            }
+        }
+
         private void ChangeTeamStatus()
         {
             if (!isTeamUp)
@@ -155,6 +171,8 @@ namespace Content.Scripts.Game.Player
                     EnableCharacter(firstCharacter);
                     EnableCharacter(secondCharacter);
                     UpdateCharacterStats();
+                    UiContainer.HUD.HideTeamUp();
+                    UiContainer.HUD.ShowByeBTN();
                 }
             }
             else
@@ -165,6 +183,7 @@ namespace Content.Scripts.Game.Player
                 EnableCharacter(Characters[currentCharacter]);
                 UpdateCharacterStats(true);
                 PlayerFocusedEvent?.Invoke(Characters[currentCharacter]);
+                UiContainer.HUD.HideByeBTN();
             }
         }
 

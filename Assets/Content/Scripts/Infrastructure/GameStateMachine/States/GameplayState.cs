@@ -1,4 +1,5 @@
 using Content.Scripts.Game.Level;
+using Content.Scripts.Game.UI;
 using Cysharp.Threading.Tasks;
 
 namespace SpringJam.Infrastructure.StateMachine
@@ -7,14 +8,17 @@ namespace SpringJam.Infrastructure.StateMachine
     {
         private GameStateMachine machine;
         private LevelLauncher levelLauncher;
-        public GameplayState(GameStateMachine machine, LevelLauncher levelLauncher)
+        private UiContainer uiContainer;
+        public GameplayState(GameStateMachine machine, LevelLauncher levelLauncher, UiContainer uiContainer)
         {
             this.machine = machine;
             this.levelLauncher = levelLauncher;
+            this.uiContainer = uiContainer;
         }
         public async UniTask Enter()
         {
            levelLauncher.LaunchGameplay();
+           uiContainer.HUD.Show();
            levelLauncher.OnPlayerFail += RestartFromLastCheckPoint;
            levelLauncher.OnPlayerFinish += FinishGame;
         }
