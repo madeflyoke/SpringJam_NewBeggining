@@ -69,9 +69,10 @@ MonoBehaviour:
   fadeTime: 1
   content: {fileID: 3882257104656398352}
   Dialogs:
-  - The brave men made an offering to the spirit of spring
-  - The Spirit appreciated their efforts
-  - And He gave them spring and a huge harvest
+  - The heroes succeeded!
+  - Their gift worked like magic, and the village burst with joy as spring finally
+    arrived.
+  - All villagers now in safety, thank you!
 --- !u!222 &1771843841098852680
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -215,10 +216,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6248285312842229896}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.848877, y: -14.657501}
-  m_SizeDelta: {x: 956.3025, y: 228.685}
+  m_AnchorMin: {x: 0.25156245, y: 0}
+  m_AnchorMax: {x: 0.7484376, y: 0.8684342}
+  m_AnchoredPosition: {x: 1.848877, y: 2.3424988}
+  m_SizeDelta: {x: 2.3024902, y: 4.6849976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3016736723128008411
 CanvasRenderer:
