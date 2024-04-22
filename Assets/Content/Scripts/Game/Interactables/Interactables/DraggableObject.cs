@@ -1,38 +1,32 @@
+using System;
+using Interactables;
 using Interactables.Interactors;
-using UnityEditor;
 using UnityEngine;
 
-namespace Interactables
+namespace Content.Scripts.Game.Interactables.Interactables
 {
     public class DraggableObject : BaseInteractableObject
     {
-        [SerializeField] private float _dragLimitDistance =10f;
-        [SerializeField] private Rigidbody _rb;
-        private Vector3 _originalPoint;
+        [SerializeField] private CharacterController _controller;
+        [SerializeField] private CapsuleCollider _physicCollider;
         private bool _isDragging;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _originalPoint = transform.position;
-            Freeze(true);
-        }
-
-        private void Freeze(bool isFrozen)
-        {
-            if (isFrozen)
-            {
-                _rb.constraints =  RigidbodyConstraints.FreezePositionX |
-                                   RigidbodyConstraints.FreezePositionZ |
-                                   RigidbodyConstraints.FreezeRotation;
-            }
-            else
-            {
-                _rb.constraints =  _rb.constraints = RigidbodyConstraints.FreezePositionZ |
-                                                     RigidbodyConstraints.FreezeRotation;
-            }
-        }
+        private Vector3 _yVelocity;
         
+
+        private void Update()
+        {
+            if (_controller.isGrounded==false)
+            {
+                _yVelocity.y += -15f * Time.deltaTime;
+                
+                _controller.Move(_yVelocity);
+            }
+            else if (_yVelocity.y<0)
+            {
+                _yVelocity.y = -2f;
+            }
+        }
+
         protected override void TryInteract()
         {
             if (CurrentInteractor is CommonCharacterInteractor interactor)
@@ -40,7 +34,7 @@ namespace Interactables
                 if (_isDragging==false)
                 {
                     SetDragging();
-                    interactor.ConnectorPoint.Connect(_rb);
+                    interactor.ConnectorPoint.Connect(_controller);
                 }
                 else
                 {
@@ -53,14 +47,12 @@ namespace Interactables
         private void SetDragging()
         {
             InteractionZone.Disable(false);
-            Freeze(false);
             _isDragging = true;
         }
 
         private void Release()
         {
             _isDragging = false;
-            Freeze(true);
             InteractionZone.Enable();
         }
         
@@ -73,20 +65,12 @@ namespace Interactables
             base.OnExitInteractionZone();
         }
 
-#if UNITY_EDITOR
-
-        private void OnDrawGizmosSelected()
-        {            
-            Handles.color = Color.yellow;
-            if (Application.isPlaying)
-            {
-                Handles.DrawLine(_originalPoint-transform.right*_dragLimitDistance, _originalPoint+transform.right*_dragLimitDistance);
-            }
-            else
-            {
-                Handles.DrawLine(transform.position-transform.right*_dragLimitDistance, transform.position+transform.right*_dragLimitDistance);
-            }
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            _physicCollider.center = _controller.center;
+            _physicCollider.radius = _controller.radius+0.05f;
+            _physicCollider.height = _controller.height;
         }
-#endif
     }
 }

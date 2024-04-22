@@ -1,6 +1,7 @@
 using System;
 using Content.Audio;
 using DG.Tweening;
+using Interactables.Interactors;
 using SpringJam.Game.Character;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace Content.Scripts.Game.Player.Characters
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private Transform ModelContainer;
         [SerializeField] private CharacterAnimation animation;
+        [SerializeField] private CommonCharacterInteractor _characterInteractor;
 
         public CharacterAnimation AnimationController => animation;
         
@@ -28,7 +30,9 @@ namespace Content.Scripts.Game.Player.Characters
         public bool directionLock;
         public bool jumpLook;
         public bool isEnabled;
-        private Vector3 velocity;
+
+        private float _defaultZPos;
+        private Vector3 yVelocity;
         
         public void Start()
         {
@@ -80,24 +84,33 @@ namespace Content.Scripts.Game.Player.Characters
             controller.Move(Vector3.down * Time.deltaTime * MotionData.Speed);
             controller.enabled = false;
             transform.position = position;
+            _defaultZPos = position.z;
             controller.enabled = true;
         }
 
         private void Update()
         {
             IsGrounded = Physics.CheckSphere(groundChecker.position, groundCheckerRadius, groundMask);
-            if (IsGrounded && velocity.y < 0)
-                velocity.y = -2f;
+            if (IsGrounded && yVelocity.y < 0)
+                yVelocity.y = -2f;
 
-            velocity.y += GRAVITY * Time.deltaTime;
+            yVelocity.y += GRAVITY * Time.deltaTime;
+
+            controller.Move(yVelocity * Time.deltaTime);
             
-            controller.Move(velocity * Time.deltaTime);
+            _characterInteractor.ConnectorPoint.TrySynchronizeConnected(yVelocity * Time.deltaTime);
         }
 
         private void HorizontalMove(float direction)
         {
             var motionDir = new Vector3(direction, 0, 0);
-            controller.Move(motionDir * (MotionData.Speed * Time.deltaTime));
+            var dir = motionDir * (MotionData.Speed * Time.deltaTime);
+            // var pos = controller.transform.position;
+            // pos.z = _defaultZPos;
+            // controller.transform.position = pos;
+            dir.z = _defaultZPos - transform.position.z;
+            controller.Move(dir);
+            _characterInteractor.ConnectorPoint.TrySynchronizeConnected(dir);
         }
 
         public void Jump()
@@ -109,8 +122,8 @@ namespace Content.Scripts.Game.Player.Characters
             {
                 SoundController.Instance?.PlayClip(LocationChanger.S_currentLocationType==LocationPartType.FOREST? SoundType.STEP_SNOW : SoundType.STEP_ROCK, isRandom:true);
                 animation.PlayJump();
-                velocity.y = Mathf.Sqrt(MotionData.JumpHeigh * -2 * GRAVITY);
-                controller.Move(velocity * Time.deltaTime);
+                yVelocity.y = Mathf.Sqrt(MotionData.JumpHeigh * -2 * GRAVITY);
+                controller.Move(yVelocity * Time.deltaTime);
             }
         }
 

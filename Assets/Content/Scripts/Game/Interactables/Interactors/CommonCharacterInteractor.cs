@@ -1,5 +1,4 @@
-using System;
-using Content.Scripts.Game.Player.Characters;
+using Content.Scripts.Game.Interactables.Interactors;
 using Interactables.Enums;
 using Interactables.Interfaces;
 using UnityEngine;
@@ -13,26 +12,18 @@ namespace Interactables.Interactors
 
         [field: SerializeField] public ConnectorPoint ConnectorPoint { get; private set; }
         [field: SerializeField] public InteractorType InteractorType { get; private set; }
-
         [SerializeField] private Collider _interactionCol;
-        [SerializeField] private CharacterMovementComponent _characterMovementComponent;
 
-
-        public void CallOnXMoveCharacter(Type caller, float xDistance)
+        private void OnEnable()
         {
-            if (caller==typeof(ConnectorPoint))
-            {
-                var newPos = _characterMovementComponent.transform.position;
-                newPos.x -= xDistance;
-                _characterMovementComponent.SetPosition(newPos);
-            }
+            ConnectorPoint.ConnectionBrokeEvent += ResetInteractor;
         }
 
-        public void CallOnConnectorBreak()
+        private void OnDisable()
         {
-            ResetInteractor();
+            ConnectorPoint.ConnectionBrokeEvent -= ResetInteractor;
         }
-        
+
         public void SetActive(bool isActive)
         {
             IsActive = isActive;

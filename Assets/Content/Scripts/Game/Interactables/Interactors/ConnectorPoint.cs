@@ -3,26 +3,24 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Interactables.Interactors
+namespace Content.Scripts.Game.Interactables.Interactors
 {
     public class ConnectorPoint : MonoBehaviour
     {
-        [SerializeField] private ConfigurableJoint _connectionJoint;
-        [SerializeField] private CommonCharacterInteractor _interactor;
+        public event Action ConnectionBrokeEvent;
+        
         private bool _isConnected;
-        private Rigidbody _connectedRb;
         private CancellationTokenSource _cts;
         private float _originalDistance;
-
-        public void Connect(Rigidbody rb)
+        private CharacterController _connectedController;
+        
+        public void Connect(CharacterController controller)
         {
             if (_isConnected == false)
             {
-                _connectedRb = rb;
-                _connectionJoint.connectedBody = _connectedRb;
+                _connectedController = controller;
                 _isConnected = true;
-                CorrectCloseDistance();
-                ValidateBreakingDistance();
+                ProcessConnecting();
             }
         }
 
@@ -30,23 +28,25 @@ namespace Interactables.Interactors
         {
             if (_isConnected)
             {
-                _connectionJoint.connectedBody = null;
+                _connectedController = null;
                 _isConnected = false;
-                _connectedRb = null;
                 _cts?.Cancel();
             }
         }
 
-        private void CorrectCloseDistance()
+        public void TrySynchronizeConnected(Vector3 dir)
         {
-            _interactor.CallOnXMoveCharacter(GetType(), 0.2f*Mathf.Sign(_connectedRb.position.x-transform.position.x));
-            _originalDistance = _connectedRb.position.x - transform.position.x;
+            if (_isConnected)
+            {
+                _connectedController.Move(dir);
+            }
         }
 
-        private async void ValidateBreakingDistance()
+        private async void ProcessConnecting()
         {
+            var originalDistance = _connectedController.transform.position.x - transform.position.x;
             _cts = new CancellationTokenSource();
-            while ((_connectedRb.position.x - transform.position.x) < (_originalDistance + 1f))
+            while ((_connectedController.transform.position.x - transform.position.x) < (originalDistance + 2f))
             {
                 var isCanceled = await UniTask.Yield(_cts.Token).SuppressCancellationThrow();
                 if (isCanceled)
@@ -54,8 +54,7 @@ namespace Interactables.Interactors
                     return;
                 }
             }
-            Debug.LogWarning("BREAK");
-            _interactor.CallOnConnectorBreak();
+            ConnectionBrokeEvent?.Invoke();
         }
 
         private void OnDisable()
