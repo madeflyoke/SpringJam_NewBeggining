@@ -54,11 +54,16 @@ namespace Content.Scripts.Game
         }
         
         
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
         private void OnValidate()
         {
-            _snowParticles = FindObjectOfType<UnityEngine.Camera>().GetComponentInChildren<ParticleSystem>();
+            var cam = FindObjectOfType<UnityEngine.Camera>();
+            if (cam!=null)
+            {
+                
+                _snowParticles = cam.GetComponentInChildren<ParticleSystem>();
+            }
         }
 
 #endif

@@ -4,6 +4,7 @@ using Content.Scripts.Game.Player;
 using Content.Scripts.Game.Player.Characters;
 using EasyButtons;
 using UniRx.Triggers;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Content.Camera
@@ -37,12 +38,19 @@ namespace Content.Camera
         
         private void OnValidate()
         {
-            _playerController ??= FindObjectOfType<PlayerController>();
-            var chars = FindObjectsOfType<Character>();
-            _vcam1.Follow = chars[0].transform;
-            _vcam2.Follow = chars[1].transform;
+            if (PrefabStageUtility.GetCurrentPrefabStage() == null)
+            {
+                _playerController ??= FindObjectOfType<PlayerController>();
+                var chars = FindObjectsOfType<Character>();
+            
+                if (chars.Length>=2)
+                {
+                    _vcam1.Follow = chars[0].transform;
+                    _vcam2.Follow = chars[1].transform;
+                }
+            }
         }
-        
+
 #endif
        
     }

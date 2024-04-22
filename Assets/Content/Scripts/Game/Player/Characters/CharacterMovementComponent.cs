@@ -3,7 +3,6 @@ using Content.Audio;
 using DG.Tweening;
 using SpringJam.Game.Character;
 using UnityEngine;
-using Random = Unity.Mathematics.Random;
 
 namespace Content.Scripts.Game.Player.Characters
 {
@@ -108,6 +107,7 @@ namespace Content.Scripts.Game.Player.Characters
 
             if (IsGrounded)
             {
+                SoundController.Instance?.PlayClip(LocationChanger.S_currentLocationType==LocationPartType.FOREST? SoundType.STEP_SNOW : SoundType.STEP_ROCK, isRandom:true);
                 animation.PlayJump();
                 velocity.y = Mathf.Sqrt(MotionData.JumpHeigh * -2 * GRAVITY);
                 controller.Move(velocity * Time.deltaTime);
