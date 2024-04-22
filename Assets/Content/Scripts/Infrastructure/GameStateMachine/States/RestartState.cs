@@ -20,6 +20,7 @@ namespace SpringJam.Infrastructure.StateMachine
         public async UniTask Enter()
         {
             levelLauncher.Disable();
+            uiContainer.HUD.Hide();
             uiContainer.FadeScreen.Show(1, () =>
             {
                 machine.Enter<GameplayState>();
