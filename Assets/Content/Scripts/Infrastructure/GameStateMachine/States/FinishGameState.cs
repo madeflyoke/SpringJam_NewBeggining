@@ -26,10 +26,12 @@ namespace SpringJam.Infrastructure.StateMachine
             {
                 uiContainer.FinishComics.gameObject.SetActive(true);
                 uiContainer.FadeScreen.gameObject.SetActive(false);
+                uiContainer.FinishComics.PreEndEvent += () =>
+                {
+                    uiContainer.FadeScreen.gameObject.SetActive(true);
+                };
                 uiContainer.FinishComics.Show();
             });
-          
-            
         }
 
         public  async  UniTask Exit()

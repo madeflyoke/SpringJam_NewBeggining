@@ -11,6 +11,7 @@ namespace Content.Scripts.Game.UI
     public class PrologueComics : MonoBehaviour
     {
         public event Action OnPrologueEnd;
+        public event Action PreEndEvent;
         [SerializeField] private TMP_Text textField;
         [SerializeField] private Button nextBTN;
         [SerializeField] private float fadeTime;
@@ -64,6 +65,7 @@ namespace Content.Scripts.Game.UI
 
         public void Hide()
         {
+            PreEndEvent?.Invoke();
             nextBTN.onClick.RemoveListener(MoveNext);
             nextBTN.gameObject.SetActive(false);
             content.DOFade(0, fadeTime).OnComplete(() =>
