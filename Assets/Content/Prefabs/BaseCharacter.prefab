@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundChecker: {fileID: 1527768302960391719}
   controller: {fileID: 7501483724989319028}
-  groundCheckerRadius: 0.2
+  groundCheckerRadius: 0.3
   groundMask:
     serializedVersion: 2
     m_Bits: 2103
@@ -311,7 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f169e6326496cd4db8af8fb28ac15ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactor: {fileID: 2485749438536847386}
 --- !u!114 &2485749438536847386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,5 +325,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ConnectorPoint>k__BackingField: {fileID: 7709698722456996136}
   <InteractorType>k__BackingField: 0
-  _characterMovementComponent: {fileID: 4978992180429713336}
   _interactionCol: {fileID: 5097268814401157376}

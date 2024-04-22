@@ -105,9 +105,7 @@ namespace Content.Scripts.Game.Player.Characters
         {
             var motionDir = new Vector3(direction, 0, 0);
             var dir = motionDir * (MotionData.Speed * Time.deltaTime);
-            // var pos = controller.transform.position;
-            // pos.z = _defaultZPos;
-            // controller.transform.position = pos;
+            
             dir.z = _defaultZPos - transform.position.z;
             controller.Move(dir);
             _characterInteractor.ConnectorPoint.TrySynchronizeConnected(dir);

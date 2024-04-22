@@ -111,7 +111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1646226538476929462, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.2
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 2286394689620457844, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
       propertyPath: m_Name
@@ -125,10 +125,6 @@ PrefabInstance:
       propertyPath: animation
       value: 
       objectReference: {fileID: 1303655912198270498}
-    - target: {fileID: 4978992180429713336, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
-      propertyPath: ModelContainer
-      value: 
-      objectReference: {fileID: 8934442860352637311}
     - target: {fileID: 6713190283690840156, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -180,6 +176,10 @@ PrefabInstance:
     - target: {fileID: 7501483724989319028, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
       propertyPath: m_Height
       value: 2.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501483724989319028, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
+      propertyPath: m_Radius
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 8363238777532962740, guid: b8521ebcf3389414f86438fcb01adafb, type: 3}
       propertyPath: type
