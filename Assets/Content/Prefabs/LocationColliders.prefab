@@ -381,8 +381,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _locationType: 2
   _snowParticles: {fileID: 0}
-  _forestFogColor: {r: 1, g: 1, b: 1, a: 1}
-  _caveFogColor: {r: 0, g: 0, b: 0, a: 1}
+  _forestFogColor: {r: 0.9254902, g: 0.9254902, b: 0.9254902, a: 1}
+  _caveFogColor: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
 --- !u!1 &3064960601919922226
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,8 +621,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _locationType: 1
   _snowParticles: {fileID: 0}
-  _forestFogColor: {r: 1, g: 1, b: 1, a: 1}
-  _caveFogColor: {r: 0, g: 0, b: 0, a: 1}
+  _forestFogColor: {r: 0.9254902, g: 0.9254902, b: 0.9254902, a: 1}
+  _caveFogColor: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
 --- !u!1 &6064832734344868228
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,3 @@
-using System;
-using DG.Tweening;
 using UnityEngine;
 
 namespace Content.Scripts.Game
@@ -13,7 +11,7 @@ namespace Content.Scripts.Game
     
     public class LocationChanger : MonoBehaviour
     {
-        private static LocationPartType s_currentLocationType;
+        public static LocationPartType S_currentLocationType;
 
         [SerializeField] private LocationPartType _locationType;
         [SerializeField] private ParticleSystem _snowParticles;
@@ -27,7 +25,7 @@ namespace Content.Scripts.Game
         
         private void OnTriggerEnter(Collider other)
         {
-            if (s_currentLocationType==_locationType)
+            if (S_currentLocationType==_locationType)
             {
                 return;
             }
@@ -45,14 +43,24 @@ namespace Content.Scripts.Game
         {
             _snowParticles.Play();
             RenderSettings.fogColor = _forestFogColor;
-            s_currentLocationType = LocationPartType.FOREST;
+            S_currentLocationType = LocationPartType.FOREST;
         }
 
         private void SetCaveType()
         {
             _snowParticles.Stop();
             RenderSettings.fogColor = _caveFogColor;
-            s_currentLocationType = LocationPartType.CAVE;
+            S_currentLocationType = LocationPartType.CAVE;
         }
+        
+        
+        #if UNITY_EDITOR
+
+        private void OnValidate()
+        {
+            _snowParticles = FindObjectOfType<UnityEngine.Camera>().GetComponentInChildren<ParticleSystem>();
+        }
+
+#endif
     }
 }

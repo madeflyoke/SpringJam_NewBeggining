@@ -128,7 +128,7 @@ namespace Content.Scripts.Game.Player.Characters
         {
             if (IsGrounded)
             {
-                SoundController.Instance?.PlayClip(SoundType.STEP_SNOW, isRandom:true);
+                SoundController.Instance?.PlayClip(LocationChanger.S_currentLocationType==LocationPartType.FOREST? SoundType.STEP_SNOW : SoundType.STEP_ROCK, isRandom:true);
             }
         }
 
