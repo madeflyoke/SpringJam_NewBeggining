@@ -26,7 +26,6 @@ namespace Content.Scripts.Game.UI
             wrapper = GetComponent<CanvasGroup>();
             content.DOFade(0, 0);
             textField.DOFade(0, 0);
-            nextBTN.interactable = false;
         }
 
         public void Show()
@@ -46,9 +45,10 @@ namespace Content.Scripts.Game.UI
             dialogIndex++;
             if (dialogIndex < Dialogs.Count)
             {
+                nextBTN.interactable = false;
+
                 textField.DOFade(0, fadeTime / 2).OnComplete(() =>
                 {
-                    nextBTN.interactable = false;
                     textField.text = Dialogs[dialogIndex];
                     textField.DOFade(1, fadeTime / 2).OnComplete(() =>
                     {
@@ -72,5 +72,12 @@ namespace Content.Scripts.Game.UI
                 OnPrologueEnd?.Invoke();
             });
         }
+
+        #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            nextBTN.interactable = false;
+        }
+        #endif
     }
 }

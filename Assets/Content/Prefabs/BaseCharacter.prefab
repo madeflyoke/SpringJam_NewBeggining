@@ -194,7 +194,7 @@ MonoBehaviour:
   groundCheckerRadius: 0.2
   groundMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 2103
   ModelContainer: {fileID: 1646226538476929462}
   animation: {fileID: 0}
   directionLock: 0
@@ -354,7 +354,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 3
+    limit: 1
     bounciness: 0
     contactDistance: 0
   m_AngularXLimitSpring:
