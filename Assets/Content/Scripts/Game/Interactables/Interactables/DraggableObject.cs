@@ -1,4 +1,5 @@
 using System;
+using Content.Audio;
 using Interactables;
 using Interactables.Interactors;
 using UnityEngine;
@@ -40,6 +41,8 @@ namespace Content.Scripts.Game.Interactables.Interactables
         {
             if (CurrentInteractor is CommonCharacterInteractor interactor)
             {
+                SoundController.Instance?.PlayClip(SoundType.INTERACT, customVolume:0.1f);
+                
                 if (_isDragging==false)
                 {
                     SetDragging();

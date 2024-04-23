@@ -1,10 +1,15 @@
 using System;
+using Content.Audio;
 using Content.Scripts.Game.Level;
 using Content.Scripts.Game.Player.Characters;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
+
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
+#endif
 
 namespace SpringJam.Game.Traps
 {
@@ -57,7 +62,8 @@ namespace SpringJam.Game.Traps
 
             indicatorSprite.gameObject.SetActive(false);
             rock.gameObject.SetActive(false);
-            
+            rock.velocity = Vector3.zero;
+
             _rockParticles.transform.SetParent(rock.transform);
             rock.transform.position = rockStartPosition;
         }
@@ -112,8 +118,10 @@ namespace SpringJam.Game.Traps
         {
             indicatorSprite.gameObject.SetActive(false);
             rock.gameObject.SetActive(false);
+            rock.velocity = Vector3.zero;
             _rockParticles.transform.SetParent(transform);
             _rockParticles.Play();
+            SoundController.Instance?.PlayClip(SoundType.STONE_HIT, customVolume: 0.06f, customPitch: 1.1f);
         }
         
 
@@ -128,14 +136,17 @@ namespace SpringJam.Game.Traps
 
         private void OnValidate()
         {
-            EDITOR_startpoint = FindObjectOfType<LevelLauncher>().StartPoint;
+            if (PrefabStageUtility.GetCurrentPrefabStage() == null)
+            {
+                EDITOR_startpoint = FindObjectOfType<LevelLauncher>().StartPoint;
             
-            var indicatorPos = indicatorSprite.transform.position;
-            indicatorPos.z = EDITOR_startpoint.position.z;
-            indicatorSprite.transform.position = indicatorPos;
+                var indicatorPos = indicatorSprite.transform.position;
+                indicatorPos.z = EDITOR_startpoint.position.z;
+                indicatorSprite.transform.position = indicatorPos;
 
-            indicatorPos.y += _rockDistance;
-            rock.transform.position = indicatorPos;
+                indicatorPos.y += _rockDistance;
+                rock.transform.position = indicatorPos;
+            }
         }
 
 #endif

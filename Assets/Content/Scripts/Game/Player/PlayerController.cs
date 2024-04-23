@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Content.Audio;
 using Content.Scripts.Game.InputService;
 using Content.Scripts.Game.Player.Characters;
 using Content.Scripts.Game.UI;
@@ -49,15 +50,33 @@ namespace Content.Scripts.Game.Player
         private void SubscribeOnInputEvents()
         {
             Input.SubscribeOnInputEvent(KeysEventType.Jump, ApplyJump);
-            Input.SubscribeOnInputEvent(KeysEventType.SelectFirst, ()=> SwitchCharacter(CharacterType.Strongman));
-            Input.SubscribeOnInputEvent(KeysEventType.SelectSecond, ()=> SwitchCharacter(CharacterType.Trickster));
-            Input.SubscribeOnInputEvent(KeysEventType.ChangeTeamStatus, ChangeTeamStatus);
+            Input.SubscribeOnInputEvent(KeysEventType.SelectFirst, ()=>
+            {
+                if (SwitchCharacter(CharacterType.Strongman))
+                {
+                    SoundController.Instance?.PlayClip(SoundType.BUTTON_PRESS,customVolume:0.05f);
+                }
+            });
+            Input.SubscribeOnInputEvent(KeysEventType.SelectSecond, ()=>
+            {
+                if (SwitchCharacter(CharacterType.Trickster))
+                {
+                    SoundController.Instance?.PlayClip(SoundType.BUTTON_PRESS,customVolume:0.05f);
+                }
+            });
+            Input.SubscribeOnInputEvent(KeysEventType.ChangeTeamStatus, ()=>
+            {
+                if (ChangeTeamStatus())
+                {
+                    SoundController.Instance?.PlayClip(SoundType.BUTTON_PRESS,customVolume:0.05f);
+                }
+            });
         }
 
         private void RemoveInputEvents()
         {
             Input.UnsubscribeFromInputEvent(KeysEventType.Jump, ApplyJump);
-            Input.SubscribeOnInputEvent(KeysEventType.ChangeTeamStatus, ChangeTeamStatus);
+            Input.ClearEventHandlerOn(KeysEventType.ChangeTeamStatus);
             Input.ClearEventHandlerOn(KeysEventType.SelectFirst);
             Input.ClearEventHandlerOn(KeysEventType.SelectSecond);
         }
@@ -68,7 +87,7 @@ namespace Content.Scripts.Game.Player
             SubscribeOnInputEvents();
             EnableCharacter(firstCharacter);
             EnableCharacter(secondCharacter);
-            SwitchCharacter(currentCharacter,true);
+            SwitchCharacter(currentCharacter);
             SetDistanceBetweenCharacters();
             Input.Enable();
         }
@@ -121,9 +140,9 @@ namespace Content.Scripts.Game.Player
                
         }
         
-        public void SwitchCharacter(CharacterType nextCharacter, bool force=false)
+        private bool SwitchCharacter(CharacterType nextCharacter)
         {
-            if (currentCharacter != nextCharacter || force)
+            if (currentCharacter != nextCharacter)
             {
                 if (!isTeamUp)
                 {
@@ -143,7 +162,10 @@ namespace Content.Scripts.Game.Player
                 Characters[otherCharacter].MovementComponent.SetPosition(posOfOther);
                 
                 PlayerFocusedEvent?.Invoke(Characters[nextCharacter]);
+                return true;
             }
+
+            return false;
         }
 
         public void FixedUpdate()
@@ -159,7 +181,7 @@ namespace Content.Scripts.Game.Player
             }
         }
 
-        private void ChangeTeamStatus()
+        private bool ChangeTeamStatus()
         {
             if (!isTeamUp)
             {
@@ -174,6 +196,7 @@ namespace Content.Scripts.Game.Player
                     UpdateCharacterStats();
                     UiContainer.HUD.HideTeamUp();
                     UiContainer.HUD.ShowByeBTN();
+                    return true;
                 }
             }
             else
@@ -185,7 +208,9 @@ namespace Content.Scripts.Game.Player
                 UpdateCharacterStats(true);
                 PlayerFocusedEvent?.Invoke(Characters[currentCharacter]);
                 UiContainer.HUD.HideByeBTN();
+                return true;
             }
+            return false;
         }
 
         private void UpdateCharacterStats(bool notDefault = false)

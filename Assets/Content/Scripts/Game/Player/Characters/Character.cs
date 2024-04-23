@@ -11,7 +11,6 @@ namespace Content.Scripts.Game.Player.Characters
         [SerializeField] private CharacterType type; 
         [SerializeField] private CharacterMovementComponent movementComponent;
         [SerializeField] private CommonCharacterInteractor commonCharacterInteractor;
-        [SerializeField] private AudioListener _audioListener;
         
         public CharacterType Type=>type;
         public CharacterMovementComponent MovementComponent=>movementComponent;
@@ -43,8 +42,6 @@ namespace Content.Scripts.Game.Player.Characters
 
         public void SetSelected(bool isSelected, bool isCombined=false)
         {
-            _audioListener.enabled = isCombined ? type == CharacterType.Strongman : isSelected;
-            
             SetInteractorActive(isSelected && !isCombined);
         }
 

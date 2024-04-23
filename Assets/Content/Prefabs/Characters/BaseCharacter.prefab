@@ -126,7 +126,6 @@ GameObject:
   - component: {fileID: 7501483724989319028}
   - component: {fileID: 4978992180429713336}
   - component: {fileID: 8363238777532962740}
-  - component: {fileID: 2195216381554530565}
   m_Layer: 10
   m_Name: BaseCharacter
   m_TagString: Untagged
@@ -217,15 +216,7 @@ MonoBehaviour:
   type: 0
   movementComponent: {fileID: 4978992180429713336}
   commonCharacterInteractor: {fileID: 2485749438536847386}
-  _audioListener: {fileID: 2195216381554530565}
---- !u!81 &2195216381554530565
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2286394689620457844}
-  m_Enabled: 1
+  _audioListener: {fileID: 0}
 --- !u!1 &6988402337627822445
 GameObject:
   m_ObjectHideFlags: 0

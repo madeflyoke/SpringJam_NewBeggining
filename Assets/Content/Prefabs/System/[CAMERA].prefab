@@ -1,5 +1,45 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1181228537955637732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3912166514968208791}
+  - component: {fileID: 8539669892068269768}
+  m_Layer: 0
+  m_Name: AudioListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3912166514968208791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181228537955637732}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 24.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5470780835253966143}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &8539669892068269768
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181228537955637732}
+  m_Enabled: 1
 --- !u!1 &1576072406504131554
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +154,7 @@ Transform:
   m_GameObject: {fileID: 3087929976117527703}
   serializedVersion: 2
   m_LocalRotation: {x: 0.1594301, y: -0, z: -0, w: 0.9872092}
-  m_LocalPosition: {x: 44.1, y: 7.9447613, z: -23.949938}
+  m_LocalPosition: {x: 214.00696, y: 156.35324, z: -71.228874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -277,11 +317,12 @@ Transform:
   m_GameObject: {fileID: 5350339130716687898}
   serializedVersion: 2
   m_LocalRotation: {x: 0.1594301, y: -0, z: -0, w: 0.9872092}
-  m_LocalPosition: {x: 41.809998, y: 7.944761, z: -23.949938}
+  m_LocalPosition: {x: 214.00696, y: 156.35324, z: -71.228874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7498957891935826826}
+  - {fileID: 3912166514968208791}
   m_Father: {fileID: 2548838344581091186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7066386974627845765
@@ -358,7 +399,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -488,7 +529,7 @@ Transform:
   m_GameObject: {fileID: 7287916420217292536}
   serializedVersion: 2
   m_LocalRotation: {x: 0.1594301, y: -0, z: -0, w: 0.9872092}
-  m_LocalPosition: {x: 41.809998, y: 7.944761, z: -23.949938}
+  m_LocalPosition: {x: 223.10693, y: 156.55322, z: -71.14888}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
