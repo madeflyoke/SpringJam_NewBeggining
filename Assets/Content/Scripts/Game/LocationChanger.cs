@@ -15,6 +15,7 @@ namespace Content.Scripts.Game
 
         [SerializeField] private LocationPartType _locationType;
         [SerializeField] private ParticleSystem _snowParticles;
+        [SerializeField] private ParticleSystem _fliesParticles;
         [SerializeField] private Color _forestFogColor;
         [SerializeField] private Color _caveFogColor;
 
@@ -42,6 +43,7 @@ namespace Content.Scripts.Game
         private void SetForestType()
         {
             _snowParticles.Play();
+            _fliesParticles.Stop();
             RenderSettings.fogColor = _forestFogColor;
             S_currentLocationType = LocationPartType.FOREST;
         }
@@ -49,23 +51,9 @@ namespace Content.Scripts.Game
         private void SetCaveType()
         {
             _snowParticles.Stop();
+            _fliesParticles.Play();
             RenderSettings.fogColor = _caveFogColor;
             S_currentLocationType = LocationPartType.CAVE;
         }
-        
-        
-#if UNITY_EDITOR
-
-        private void OnValidate()
-        {
-            var cam = FindObjectOfType<UnityEngine.Camera>();
-            if (cam!=null)
-            {
-                
-                _snowParticles = cam.GetComponentInChildren<ParticleSystem>();
-            }
-        }
-
-#endif
     }
 }
