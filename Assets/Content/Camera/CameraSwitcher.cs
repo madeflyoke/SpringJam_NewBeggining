@@ -1,11 +1,12 @@
-using System;
 using Cinemachine;
 using Content.Scripts.Game.Player;
 using Content.Scripts.Game.Player.Characters;
-using EasyButtons;
-using UniRx.Triggers;
-using UnityEditor.SceneManagement;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
+#endif
+
 
 namespace Content.Camera
 {
@@ -35,7 +36,7 @@ namespace Content.Camera
         }
 
 #if UNITY_EDITOR
-        
+
         private void OnValidate()
         {
             if (PrefabStageUtility.GetCurrentPrefabStage() == null)
