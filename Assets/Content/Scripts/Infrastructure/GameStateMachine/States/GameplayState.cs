@@ -1,11 +1,14 @@
 using Content.Scripts.Game.Level;
 using Content.Scripts.Game.UI;
 using Cysharp.Threading.Tasks;
+using Zenject;
 
 namespace SpringJam.Infrastructure.StateMachine
 {
     public class GameplayState : IState
     {
+        [Inject] private LevelLauncher _levelLauncher;
+        
         private GameStateMachine machine;
         private LevelLauncher levelLauncher;
         private UiContainer uiContainer;
@@ -15,11 +18,12 @@ namespace SpringJam.Infrastructure.StateMachine
             this.levelLauncher = levelLauncher;
             this.uiContainer = uiContainer;
         }
+        
         public async UniTask Enter()
         {
            levelLauncher.LaunchGameplay();
            uiContainer.HUD.Show();
-           levelLauncher.OnPlayerFail += RestartFromLastCheckPoint;
+           _levelLauncher.OnPlayerFail += RestartFromLastCheckPoint;
            levelLauncher.OnPlayerFinish += FinishGame;
         }
 
@@ -35,7 +39,7 @@ namespace SpringJam.Infrastructure.StateMachine
 
         public async UniTask Exit()
         {
-            levelLauncher.OnPlayerFail -= RestartFromLastCheckPoint;
+            _levelLauncher.OnPlayerFail -= RestartFromLastCheckPoint;
             levelLauncher.OnPlayerFinish -= FinishGame;
         }
     }

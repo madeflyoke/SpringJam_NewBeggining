@@ -4,17 +4,21 @@ using Content.Scripts.Game.Player.Characters;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace SpringJam.Game.Traps
 {
     public class FallenRocksTrap : MonoBehaviour
     {
+        [Inject] private LevelLauncher _levelLauncher;
+        
         [SerializeField] private BoxCollider fallenTrigger;
         [SerializeField] private Rigidbody rock;
         [SerializeField] private float force;
         [SerializeField] private Transform indicatorSprite;
         [SerializeField] private float _rockDistance;
         [SerializeField] private ParticleSystem _rockParticles;
+        [SerializeField] private FallenRockFailTrigger _fallenRockFailTrigger;
 
         private Vector3 rockStartPosition;
         private bool alreadyFall;
@@ -30,24 +34,32 @@ namespace SpringJam.Game.Traps
                 .Subscribe(OnFallenTriggerEnter)
                 .AddTo(this);
             
-            PlayerFailTrigger.OnPlayerFail += ResetTrap;
+            _fallenRockFailTrigger.OnTriggerCaught += OnPlayerFail;
+            _levelLauncher.OnPlayerSpawn += ResetTrap;
         }
 
         private void OnDestroy()
         {
-            PlayerFailTrigger.OnPlayerFail -= ResetTrap;
+            _fallenRockFailTrigger.OnTriggerCaught -= OnPlayerFail;
+            _levelLauncher.OnPlayerSpawn -= ResetTrap;
+        }
+
+        private void OnPlayerFail()
+        {
+            _indicatorDisposable?.Dispose();
+            OnLanding();
+            _levelLauncher.OnPlayerFail?.Invoke();
         }
         
         private void ResetTrap()
         {
             alreadyFall = false;
+
+            indicatorSprite.gameObject.SetActive(false);
+            rock.gameObject.SetActive(false);
             
             _rockParticles.transform.SetParent(rock.transform);
             rock.transform.position = rockStartPosition;
-            rock.gameObject.SetActive(false);
-            
-            indicatorSprite.gameObject.SetActive(false);
-            _indicatorDisposable?.Dispose();
         }
         
         private void OnFallenTriggerEnter(Collider collider)
