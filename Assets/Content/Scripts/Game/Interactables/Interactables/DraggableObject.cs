@@ -11,7 +11,13 @@ namespace Content.Scripts.Game.Interactables.Interactables
         [SerializeField] private CapsuleCollider _physicCollider;
         private bool _isDragging;
         private Vector3 _yVelocity;
-        
+        private float _defaultZPos;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _defaultZPos = transform.position.z;
+        }
 
         private void Update()
         {
@@ -25,6 +31,9 @@ namespace Content.Scripts.Game.Interactables.Interactables
             {
                 _yVelocity.y = -2f;
             }
+            
+            var diff = _defaultZPos - transform.position.z;
+            _controller.Move(Vector3.forward * diff);
         }
 
         protected override void TryInteract()
