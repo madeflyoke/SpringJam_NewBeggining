@@ -106,6 +106,7 @@ MonoBehaviour:
   indicatorSprite: {fileID: 8367529908997333934}
   _rockDistance: 40.06
   _rockParticles: {fileID: 6153065660879961656}
+  _fallenRockFailTrigger: {fileID: 7788415916772102742}
 --- !u!1 &6567174475412040030
 GameObject:
   m_ObjectHideFlags: 0

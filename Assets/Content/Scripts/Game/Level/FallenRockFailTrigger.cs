@@ -1,12 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Content.Scripts.Game.Level
 {
     public class FallenRockFailTrigger : PlayerFailTrigger
     {
-        protected override bool ValidateCondition(Collider other)
+        public event Action OnTriggerCaught;
+
+        protected override void TriggerEntered(Collider other)
         {
-            return base.ValidateCondition(other) && transform.position.y> other.bounds.max.y;
+            if (transform.position.y> other.bounds.max.y)
+            {
+                OnTriggerCaught?.Invoke();
+            }
         }
     }
 }

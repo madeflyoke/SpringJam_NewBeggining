@@ -6,7 +6,8 @@ namespace Content.Scripts.Game.Level
 {
     public class LevelLauncher : MonoBehaviour
     {
-        public event Action OnPlayerFail;
+        public Action OnPlayerFail;
+        public event Action OnPlayerSpawn;
         public event Action OnPlayerFinish;
         [SerializeField] private PlayerController player;
         [SerializeField] private ProgressHandler.ProgressHandler ProgressHandler;
@@ -23,6 +24,7 @@ namespace Content.Scripts.Game.Level
 
         public void LaunchGameplay()
         {
+            OnPlayerSpawn?.Invoke();
             ProgressHandler.isEnable = true;
             var spawnPos = ProgressHandler.LastCheckpoint == null
                 ? StartPoint.position
@@ -30,19 +32,13 @@ namespace Content.Scripts.Game.Level
             player.SpawnCharacter(spawnPos);
             player.Enable();
             
-            PlayerFailTrigger.OnPlayerFail += CatchFailTrigger;
-
             LevelFinishTrigger.OnPlayerWin += FinishGame;
         }
-
-        private void CatchFailTrigger() => OnPlayerFail?.Invoke();
-
+        
         public void Disable()
         {
             ProgressHandler.isEnable = true;
             player.Disable();
-            
-            PlayerFailTrigger.OnPlayerFail -= CatchFailTrigger;
             
             LevelFinishTrigger.OnPlayerWin -= FinishGame;
         }

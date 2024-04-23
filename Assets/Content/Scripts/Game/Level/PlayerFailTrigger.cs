@@ -1,21 +1,22 @@
-using System;
 using Content.Scripts.Game.Player.Characters;
 using UnityEngine;
+using Zenject;
 
 namespace Content.Scripts.Game.Level
 {
     public class PlayerFailTrigger : MonoBehaviour
     {
-        public static event Action OnPlayerFail;
+        [Inject] private LevelLauncher _levelLauncher;
+        
         public void OnTriggerEnter(Collider other)
         {
-            if(ValidateCondition(other))
-                OnPlayerFail?.Invoke();
+            if (other.gameObject.GetComponent<Character>())
+                TriggerEntered(other);
         }
 
-        protected virtual bool ValidateCondition(Collider other)
+        protected virtual void TriggerEntered(Collider other)
         {
-            return other.gameObject.GetComponent<Character>();
+            _levelLauncher.OnPlayerFail?.Invoke();
         }
     }
 }
