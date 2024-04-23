@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MotionDatas:
   - Type: 0
-    Speed: 8
-    JumpHeigh: 2
+    Speed: 6
+    JumpHeigh: 4
   - Type: 1
     Speed: 8
-    JumpHeigh: 7
+    JumpHeigh: 6
   - Type: 2
-    Speed: 10
-    JumpHeigh: 10
+    Speed: 9
+    JumpHeigh: 7
