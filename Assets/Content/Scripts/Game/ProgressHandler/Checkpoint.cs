@@ -1,4 +1,5 @@
 using System;
+using Content.Scripts.Game.Level;
 using Content.Scripts.Game.Player.Characters;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Content.Scripts.Game.ProgressHandler
         [SerializeField] private ParticleSystem _activeParticles;
         [SerializeField] private CharacterType _targetActivatorType;
         public Vector3 RespawnPoint => respawnPoint.position;
-        public event Action<Checkpoint> OnPlayerReach;
+        public static event Action<Checkpoint> OnPlayerReach;
         public bool Reached { get; private set; }
 
         private void Start()
@@ -34,5 +35,20 @@ namespace Content.Scripts.Game.ProgressHandler
                 }
             
         }
+        
+#if UNITY_EDITOR
+
+        [SerializeField] private Transform EDITOR_startpoint;
+        
+        private void OnValidate()
+        {
+            EDITOR_startpoint = FindObjectOfType<LevelLauncher>().StartPoint;
+            
+            var pos = transform.position;
+            pos.z = EDITOR_startpoint.position.z;
+            transform.position = pos;
+        }
+
+#endif
     }
 }

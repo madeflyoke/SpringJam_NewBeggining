@@ -1,26 +1,18 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Content.Scripts.Game.ProgressHandler
 {
     public class ProgressHandler : MonoBehaviour
     {
-      
-        [SerializeField] private List<Checkpoint> Checkpoints= new List<Checkpoint>();
         public Transform StartPoint;
         public Checkpoint LastCheckpoint { get; private set; }
         public bool isEnable;
 
-        public void Init(float startPointZ)
+        public void Init()
         {
             LastCheckpoint = null;
-            foreach (var checkpoint in Checkpoints)
-            {
-                checkpoint.OnPlayerReach += UpdateLastCheckpoint;
-                var pos = checkpoint.transform.position;
-                pos.z = startPointZ;
-                checkpoint.transform.position = pos;
-            }
+            
+            Checkpoint.OnPlayerReach += UpdateLastCheckpoint;
         }
 
         private void UpdateLastCheckpoint(Checkpoint reachedPoint)

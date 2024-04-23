@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Content.Scripts.Game.Player;
 using UnityEngine;
-using Zenject;
 
 namespace Content.Scripts.Game.Level
 {
@@ -12,14 +10,13 @@ namespace Content.Scripts.Game.Level
         public event Action OnPlayerFinish;
         [SerializeField] private PlayerController player;
         [SerializeField] private ProgressHandler.ProgressHandler ProgressHandler;
-        [SerializeField] private Transform startPoint;
-        [SerializeField] private List<PlayerFailTrigger> FailTriggers = new List<PlayerFailTrigger>();
+        [field: SerializeField] public Transform StartPoint { get; private set; }
         [SerializeField] private LevelFinishTrigger LevelFinishTrigger;
 
         public void Init(Action OnInitialize = null)
         {
-            ProgressHandler.StartPoint = startPoint;
-            ProgressHandler.Init(startPoint.position.z);
+            ProgressHandler.StartPoint = StartPoint;
+            ProgressHandler.Init();
             player.Init();
             OnInitialize?.Invoke();
         }
@@ -28,29 +25,25 @@ namespace Content.Scripts.Game.Level
         {
             ProgressHandler.isEnable = true;
             var spawnPos = ProgressHandler.LastCheckpoint == null
-                ? startPoint.position
+                ? StartPoint.position
                 : ProgressHandler.LastCheckpoint.RespawnPoint;
             player.SpawnCharacter(spawnPos);
             player.Enable();
             
-            foreach (var playerFailTrigger in FailTriggers)
-            {
-                playerFailTrigger.OnPlayerFail += CatchPlayerFail;
-            }
+            PlayerFailTrigger.OnPlayerFail += CatchFailTrigger;
 
             LevelFinishTrigger.OnPlayerWin += FinishGame;
         }
 
-        private void CatchPlayerFail() => OnPlayerFail?.Invoke();
+        private void CatchFailTrigger() => OnPlayerFail?.Invoke();
 
         public void Disable()
         {
             ProgressHandler.isEnable = true;
             player.Disable();
-            foreach (var playerFailTrigger in FailTriggers)
-            {
-                playerFailTrigger.OnPlayerFail -= CatchPlayerFail;
-            }
+            
+            PlayerFailTrigger.OnPlayerFail -= CatchFailTrigger;
+            
             LevelFinishTrigger.OnPlayerWin -= FinishGame;
         }
 

@@ -527,7 +527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3026210206170358546}
   m_Layer: 0
-  m_Name: LocationColliders
+  m_Name: LocationCollidersChangers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

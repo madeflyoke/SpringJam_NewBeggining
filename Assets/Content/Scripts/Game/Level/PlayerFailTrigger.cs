@@ -6,12 +6,16 @@ namespace Content.Scripts.Game.Level
 {
     public class PlayerFailTrigger : MonoBehaviour
     {
-        public event Action OnPlayerFail;
-
+        public static event Action OnPlayerFail;
         public void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.GetComponent<Character>())
+            if(ValidateCondition(other))
                 OnPlayerFail?.Invoke();
+        }
+
+        protected virtual bool ValidateCondition(Collider other)
+        {
+            return other.gameObject.GetComponent<Character>();
         }
     }
 }

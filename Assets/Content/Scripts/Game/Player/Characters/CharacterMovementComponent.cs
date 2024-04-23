@@ -2,7 +2,7 @@ using System;
 using Content.Audio;
 using DG.Tweening;
 using Interactables.Interactors;
-using SpringJam.Game.Character;
+using SpringJam.Game.Characters;
 using UnityEngine;
 
 namespace Content.Scripts.Game.Player.Characters
