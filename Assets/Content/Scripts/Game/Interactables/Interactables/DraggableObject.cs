@@ -74,6 +74,8 @@ namespace Content.Scripts.Game.Interactables.Interactables
             base.OnExitInteractionZone();
         }
 
+        #if UNITY_EDITOR
+        
         protected override void OnValidate()
         {
             base.OnValidate();
@@ -81,5 +83,7 @@ namespace Content.Scripts.Game.Interactables.Interactables
             _physicCollider.radius = _controller.radius+0.05f;
             _physicCollider.height = _controller.height;
         }
+        
+        #endif
     }
 }

@@ -14,6 +14,7 @@ namespace Content.Scripts.Game.Player
         
         [SerializeField] private Character firstCharacter;
         [SerializeField] private Character secondCharacter;
+        
         [Inject] private CharacterMotionConfig MotionConfig;
         [Inject] private InputHandler Input;
         [Inject] private CharacterTeamConfig TeamConfig;
@@ -67,7 +68,7 @@ namespace Content.Scripts.Game.Player
             SubscribeOnInputEvents();
             EnableCharacter(firstCharacter);
             EnableCharacter(secondCharacter);
-            SwitchCharacter(currentCharacter);
+            SwitchCharacter(currentCharacter,true);
             SetDistanceBetweenCharacters();
             Input.Enable();
         }
@@ -120,9 +121,9 @@ namespace Content.Scripts.Game.Player
                
         }
         
-        public void SwitchCharacter(CharacterType nextCharacter)
+        public void SwitchCharacter(CharacterType nextCharacter, bool force=false)
         {
-            if (currentCharacter != nextCharacter)
+            if (currentCharacter != nextCharacter || force)
             {
                 if (!isTeamUp)
                 {

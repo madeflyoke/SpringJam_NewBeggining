@@ -107,6 +107,7 @@ MonoBehaviour:
   _rockDistance: 40.06
   _rockParticles: {fileID: 6153065660879961656}
   _fallenRockFailTrigger: {fileID: 7788415916772102742}
+  EDITOR_startpoint: {fileID: 0}
 --- !u!1 &6567174475412040030
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +134,7 @@ Transform:
   m_GameObject: {fileID: 6567174475412040030}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071067, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.41, y: 0.1499997, z: -0.15}
+  m_LocalPosition: {x: 1.4099998, y: 0.14999966, z: -10.332118}
   m_LocalScale: {x: 2.1974478, y: 2.1974478, z: 2.1974478}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -380,15 +381,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4412079244984989205, guid: 6ba62410bd2435d49a8b5cde1b2cdf4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.41
+      value: 1.4099998
       objectReference: {fileID: 0}
     - target: {fileID: 4412079244984989205, guid: 6ba62410bd2435d49a8b5cde1b2cdf4c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.927652
+      value: 16.92765
       objectReference: {fileID: 0}
     - target: {fileID: 4412079244984989205, guid: 6ba62410bd2435d49a8b5cde1b2cdf4c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.15
+      value: -10.332118
       objectReference: {fileID: 0}
     - target: {fileID: 4412079244984989205, guid: 6ba62410bd2435d49a8b5cde1b2cdf4c, type: 3}
       propertyPath: m_LocalRotation.w

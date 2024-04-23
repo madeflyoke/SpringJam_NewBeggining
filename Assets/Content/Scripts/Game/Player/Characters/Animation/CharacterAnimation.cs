@@ -9,16 +9,13 @@ namespace SpringJam.Game.Characters
         private const string BOOL_JUMP = "Jump";
         private const string BOOL_RUNNING = "Running";
 
-        private Animator animator;
-        private CharacterAnimationEventHandler eventHandler;
+        [SerializeField] private Animator animator;
+        [SerializeField] private CharacterAnimationEventHandler eventHandler;
 
         public CharacterAnimationEventHandler EventHandler => eventHandler;
 
         private void Awake()
         {
-            animator = GetComponent<Animator>();
-            eventHandler = GetComponent<CharacterAnimationEventHandler>();
-
             PlayIdle();
         }
 

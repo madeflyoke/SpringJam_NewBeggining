@@ -3,6 +3,10 @@ using Content.Scripts.Game.Level;
 using Content.Scripts.Game.Player.Characters;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
+#endif
+
 namespace Content.Scripts.Game.ProgressHandler
 {
     public class Checkpoint : MonoBehaviour
@@ -10,6 +14,8 @@ namespace Content.Scripts.Game.ProgressHandler
         [SerializeField] private Transform respawnPoint;
         [SerializeField] private ParticleSystem _activeParticles;
         [SerializeField] private CharacterType _targetActivatorType;
+        [SerializeField] private AudioSource _fireSfx;
+        
         public Vector3 RespawnPoint => respawnPoint.position;
         public static event Action<Checkpoint> OnPlayerReach;
         public bool Reached { get; private set; }
@@ -30,6 +36,7 @@ namespace Content.Scripts.Game.ProgressHandler
                         Reached = true;
                         _activeParticles.gameObject.SetActive(true);
                         _activeParticles.Play();
+                        _fireSfx.Play();
                         OnPlayerReach?.Invoke(this);
                     }
                 }
@@ -42,11 +49,14 @@ namespace Content.Scripts.Game.ProgressHandler
         
         private void OnValidate()
         {
-            EDITOR_startpoint = FindObjectOfType<LevelLauncher>().StartPoint;
-            
-            var pos = transform.position;
-            pos.z = EDITOR_startpoint.position.z;
-            transform.position = pos;
+            if (PrefabStageUtility.GetCurrentPrefabStage() == null)
+            {
+                EDITOR_startpoint = FindObjectOfType<LevelLauncher>().StartPoint;
+
+                var pos = transform.position;
+                pos.z = EDITOR_startpoint.position.z;
+                transform.position = pos;
+            }
         }
 
 #endif
