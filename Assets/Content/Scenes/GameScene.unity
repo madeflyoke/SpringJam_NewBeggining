@@ -836,6 +836,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2548838344581091186, guid: 7777c284318f2964ea18fb455fda9a43, type: 3}
   m_PrefabInstance: {fileID: 162116523}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &162116525 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 525755860663525606, guid: 7777c284318f2964ea18fb455fda9a43, type: 3}
+  m_PrefabInstance: {fileID: 162116523}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &208339415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2346,6 +2351,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LocationColliders
       objectReference: {fileID: 0}
+    - target: {fileID: 5568678058592408876, guid: 01b57614a98acb24d9cc4a3762eea0ee, type: 3}
+      propertyPath: _fliesParticles
+      value: 
+      objectReference: {fileID: 162116525}
+    - target: {fileID: 7272116250045775146, guid: 01b57614a98acb24d9cc4a3762eea0ee, type: 3}
+      propertyPath: _fliesParticles
+      value: 
+      objectReference: {fileID: 162116525}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
