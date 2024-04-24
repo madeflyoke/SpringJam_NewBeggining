@@ -7,10 +7,6 @@ using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 
-#if UNITY_EDITOR
-using UnityEditor.SceneManagement;
-#endif
-
 namespace SpringJam.Game.Traps
 {
     public class FallenRocksTrap : MonoBehaviour

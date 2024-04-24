@@ -3,11 +3,6 @@ using Content.Scripts.Game.Player;
 using Content.Scripts.Game.Player.Characters;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor.SceneManagement;
-#endif
-
-
 namespace Content.Camera
 {
     public class CameraSwitcher : MonoBehaviour
