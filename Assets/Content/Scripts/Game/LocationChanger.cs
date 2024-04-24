@@ -1,3 +1,4 @@
+using Content.Scripts.Game.Player.Characters;
 using UnityEngine;
 
 namespace Content.Scripts.Game
@@ -16,6 +17,7 @@ namespace Content.Scripts.Game
         [SerializeField] private LocationPartType _locationType;
         [SerializeField] private ParticleSystem _snowParticles;
         [SerializeField] private ParticleSystem _fliesParticles;
+        [SerializeField] private AudioSource _windAudio;
 
         private void Awake()
         {
@@ -24,17 +26,20 @@ namespace Content.Scripts.Game
         
         private void OnTriggerEnter(Collider other)
         {
-            if (S_currentLocationType==_locationType)
+            if (other.gameObject==UnityEngine.Camera.main.gameObject)
             {
-                return;
-            }
-            if (_locationType==LocationPartType.FOREST)
-            {
-                SetForestType();
-            }
-            else
-            {
-                SetCaveType();
+                if (S_currentLocationType==_locationType)
+                {
+                    return;
+                }
+                if (_locationType==LocationPartType.FOREST)
+                {
+                    SetForestType();
+                }
+                else
+                {
+                    SetCaveType();
+                }
             }
         }
 
@@ -42,6 +47,7 @@ namespace Content.Scripts.Game
         {
             _snowParticles.Play();
             _fliesParticles.Stop();
+            _windAudio.Play();
             S_currentLocationType = LocationPartType.FOREST;
         }
 
@@ -49,6 +55,7 @@ namespace Content.Scripts.Game
         {
             _snowParticles.Stop();
             _fliesParticles.Play();
+            _windAudio.Stop();
             S_currentLocationType = LocationPartType.CAVE;
         }
     }

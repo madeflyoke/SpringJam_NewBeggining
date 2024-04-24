@@ -317,7 +317,7 @@ Transform:
   m_GameObject: {fileID: 5350339130716687898}
   serializedVersion: 2
   m_LocalRotation: {x: 0.1594301, y: -0, z: -0, w: 0.9872092}
-  m_LocalPosition: {x: 214.00696, y: 156.35324, z: -71.228874}
+  m_LocalPosition: {x: 223.10693, y: 156.55322, z: -71.14888}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -335,8 +335,8 @@ Camera:
   m_GameObject: {fileID: 5350339130716687898}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.10412957, g: 0.33312568, b: 0.4716981, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 525755860663525606}
   - component: {fileID: 1078391315026158611}
   m_Layer: 0
-  m_Name: CFX2_Wandering_Spirits(Clone)
+  m_Name: CFX2_Wandering_Spirits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -531,7 +531,7 @@ Transform:
   m_GameObject: {fileID: 6477881606277311560}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7933534, y: -0, z: -0, w: 0.6087614}
-  m_LocalPosition: {x: 689.141, y: 18.2, z: 17.3}
+  m_LocalPosition: {x: 0.5, y: 1.9, z: 12.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
