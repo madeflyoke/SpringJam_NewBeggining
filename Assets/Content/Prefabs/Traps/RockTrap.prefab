@@ -107,7 +107,6 @@ MonoBehaviour:
   _rockDistance: 40.06
   _rockParticles: {fileID: 6153065660879961656}
   _fallenRockFailTrigger: {fileID: 7788415916772102742}
-  EDITOR_startpoint: {fileID: 0}
 --- !u!1 &6567174475412040030
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,27 +273,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3587091474463462983, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.1882353
+      value: 0.3018868
       objectReference: {fileID: 0}
     - target: {fileID: 3587091474463462983, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.1882353
+      value: 0.3018868
       objectReference: {fileID: 0}
     - target: {fileID: 3587091474463462983, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.1882353
+      value: 0.3018868
       objectReference: {fileID: 0}
     - target: {fileID: 3587091474463462983, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.minColor.b
-      value: 0.1882353
+      value: 0.2924528
       objectReference: {fileID: 0}
     - target: {fileID: 3587091474463462983, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.minColor.g
-      value: 0.1882353
+      value: 0.2924528
       objectReference: {fileID: 0}
     - target: {fileID: 3587091474463462983, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.minColor.r
-      value: 0.1882353
+      value: 0.2924528
       objectReference: {fileID: 0}
     - target: {fileID: 3626662362479050269, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: playOnAwake
@@ -314,27 +313,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6175829372184090271, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.1882353
+      value: 0.3018868
       objectReference: {fileID: 0}
     - target: {fileID: 6175829372184090271, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.1882353
+      value: 0.3018868
       objectReference: {fileID: 0}
     - target: {fileID: 6175829372184090271, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.1882353
+      value: 0.3018868
       objectReference: {fileID: 0}
     - target: {fileID: 6175829372184090271, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.minColor.b
-      value: 0.1882353
+      value: 0.2735849
       objectReference: {fileID: 0}
     - target: {fileID: 6175829372184090271, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.minColor.g
-      value: 0.1882353
+      value: 0.2735849
       objectReference: {fileID: 0}
     - target: {fileID: 6175829372184090271, guid: 7a9ec067c83580944bc53c165b2fda88, type: 3}
       propertyPath: InitialModule.startColor.minColor.r
-      value: 0.1882353
+      value: 0.2735849
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
