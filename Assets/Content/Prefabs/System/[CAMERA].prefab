@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 7268918589677438742}
   - component: {fileID: 8937396201770059768}
   - component: {fileID: 6412594865766231216}
+  - component: {fileID: 3237932039658480705}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -441,7 +442,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 1
+    m_Time: 2
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -470,6 +471,20 @@ MonoBehaviour:
   _playerController: {fileID: 0}
   _vcam1: {fileID: 5621743854255421355}
   _vcam2: {fileID: 75786765104760694}
+--- !u!114 &3237932039658480705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5350339130716687898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 708f3e27bd55e9d4fb0080498fd7f10c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snowParticles: {fileID: 7498957891951032010}
+  _fliesParticles: {fileID: 525755860663525606}
 --- !u!1 &6307711804956736462
 GameObject:
   m_ObjectHideFlags: 0
@@ -5340,5 +5355,10 @@ PrefabInstance:
 --- !u!4 &7498957891935826826 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: de07bf378e7247444a0715ad2ff509e3, type: 3}
+  m_PrefabInstance: {fileID: 7498957891935955210}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7498957891951032010 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 19800000, guid: de07bf378e7247444a0715ad2ff509e3, type: 3}
   m_PrefabInstance: {fileID: 7498957891935955210}
   m_PrefabAsset: {fileID: 0}

@@ -1,4 +1,4 @@
-using Content.Scripts.Game.Player.Characters;
+using UniRx;
 using UnityEngine;
 
 namespace Content.Scripts.Game
@@ -14,49 +14,65 @@ namespace Content.Scripts.Game
     {
         public static LocationPartType S_currentLocationType;
 
-        [SerializeField] private LocationPartType _locationType;
-        [SerializeField] private ParticleSystem _snowParticles;
-        [SerializeField] private ParticleSystem _fliesParticles;
+        [SerializeField] private CameraAttachments _cameraAttachments;
         [SerializeField] private AudioSource _windAudio;
+        private Transform _camTransform;
+        private Vector2 _changerSafeBounds;
 
+        private bool _isLefter => _camTransform.position.x<=_changerSafeBounds.x;
+        private bool _isRighter =>_camTransform.position.x>_changerSafeBounds.y;
+        
         private void Awake()
         {
+            _camTransform = _cameraAttachments.transform;
+            _changerSafeBounds = new Vector2(transform.position.x - 2f, transform.position.x + 2);
             SetForestType();
-        }
-        
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject==UnityEngine.Camera.main.gameObject)
+
+            this.ObserveEveryValueChanged(x => _isLefter).Where(x=>!x).Subscribe(_ =>
             {
-                if (S_currentLocationType==_locationType)
-                {
-                    return;
-                }
-                if (_locationType==LocationPartType.FOREST)
-                {
-                    SetForestType();
-                }
-                else
-                {
-                    SetCaveType();
-                }
-            }
+                SetCaveType();
+            }).AddTo(this);
+            
+            this.ObserveEveryValueChanged(x => _isRighter).Where(x=>!x).Subscribe(_ =>
+            {
+                SetForestType();
+            }).AddTo(this);
         }
 
         private void SetForestType()
         {
-            _snowParticles.Play();
-            _fliesParticles.Stop();
-            _windAudio.Play();
-            S_currentLocationType = LocationPartType.FOREST;
+            if (S_currentLocationType!=LocationPartType.FOREST)
+            {
+                S_currentLocationType = LocationPartType.FOREST;
+                _windAudio.Play();
+                SetParticles();
+            }
         }
 
         private void SetCaveType()
         {
-            _snowParticles.Stop();
-            _fliesParticles.Play();
-            _windAudio.Stop();
-            S_currentLocationType = LocationPartType.CAVE;
+            if (S_currentLocationType!=LocationPartType.CAVE)
+            {
+                S_currentLocationType = LocationPartType.CAVE;
+                _windAudio.Stop();
+                SetParticles();
+            }
         }
+
+        private void SetParticles()
+        {
+            _cameraAttachments.SetSnowParticles(S_currentLocationType==LocationPartType.FOREST);
+            _cameraAttachments.SetFirefliesParticles(S_currentLocationType!=LocationPartType.FOREST);
+        }
+        
+        
+#if UNITY_EDITOR
+
+        private void OnValidate()
+        {
+            _cameraAttachments = FindObjectOfType<CameraAttachments>();
+        }
+
+#endif
     }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MotionDatas:
   - Type: 0
-    Speed: 6
+    Speed: 8
     JumpHeigh: 4
   - Type: 1
     Speed: 8

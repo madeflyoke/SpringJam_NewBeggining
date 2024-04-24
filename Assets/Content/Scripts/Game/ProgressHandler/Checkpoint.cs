@@ -2,11 +2,14 @@ using System;
 using Content.Scripts.Game.Level;
 using Content.Scripts.Game.Player.Characters;
 using UnityEngine;
+using Zenject;
 
 namespace Content.Scripts.Game.ProgressHandler
 {
     public class Checkpoint : MonoBehaviour
     {
+        [Inject] private LevelLauncher _levelLauncher;
+        
         [SerializeField] private Transform respawnPoint;
         [SerializeField] private ParticleSystem _activeParticles;
         [SerializeField] private CharacterType _targetActivatorType;
@@ -18,6 +21,9 @@ namespace Content.Scripts.Game.ProgressHandler
 
         private void Start()
         {
+            var diff = transform.position.z - _levelLauncher.StartPoint.position.z;
+            transform.position -= Vector3.forward*diff;
+            
             _activeParticles.gameObject.SetActive(false);
             _activeParticles.Stop();
         }
@@ -38,22 +44,5 @@ namespace Content.Scripts.Game.ProgressHandler
                 }
             
         }
-        
-#if UNITY_EDITOR
-        
-        private void OnValidate()
-        {
-            var launcher = FindObjectOfType<LevelLauncher>();
-          
-            if (launcher != null)
-            {
-                var pos = transform.position;
-                pos.z = launcher.StartPoint.position.z;
-                transform.position = pos;
-            }
-           
-        }
-
-#endif
     }
 }

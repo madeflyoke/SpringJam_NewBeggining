@@ -71,7 +71,6 @@ MonoBehaviour:
   _activeParticles: {fileID: 6424069127062417240}
   _targetActivatorType: 2
   _fireSfx: {fileID: 5634370809126630443}
-  EDITOR_startpoint: {fileID: 0}
 --- !u!1001 &7368990072474523358
 PrefabInstance:
   m_ObjectHideFlags: 0
