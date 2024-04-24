@@ -131,17 +131,15 @@ namespace SpringJam.Game.Traps
         }
         
 #if UNITY_EDITOR
-
-        [SerializeField] private Transform EDITOR_startpoint;
-
+        
         private void OnValidate()
         {
-            if (PrefabStageUtility.GetCurrentPrefabStage() == null)
+            var launcher = FindObjectOfType<LevelLauncher>();
+
+            if (launcher!=null)
             {
-                EDITOR_startpoint = FindObjectOfType<LevelLauncher>().StartPoint;
-            
                 var indicatorPos = indicatorSprite.transform.position;
-                indicatorPos.z = EDITOR_startpoint.position.z;
+                indicatorPos.z = launcher.StartPoint.position.z;
                 indicatorSprite.transform.position = indicatorPos;
 
                 indicatorPos.y += _rockDistance;

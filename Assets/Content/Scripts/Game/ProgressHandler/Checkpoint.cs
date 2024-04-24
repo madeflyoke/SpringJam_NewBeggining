@@ -44,19 +44,18 @@ namespace Content.Scripts.Game.ProgressHandler
         }
         
 #if UNITY_EDITOR
-
-        [SerializeField] private Transform EDITOR_startpoint;
         
         private void OnValidate()
         {
-            if (PrefabStageUtility.GetCurrentPrefabStage() == null)
+            var launcher = FindObjectOfType<LevelLauncher>();
+          
+            if (launcher != null)
             {
-                EDITOR_startpoint = FindObjectOfType<LevelLauncher>().StartPoint;
-
                 var pos = transform.position;
-                pos.z = EDITOR_startpoint.position.z;
+                pos.z = launcher.StartPoint.position.z;
                 transform.position = pos;
             }
+           
         }
 
 #endif

@@ -39,9 +39,10 @@ namespace Content.Camera
 
         private void OnValidate()
         {
-            if (PrefabStageUtility.GetCurrentPrefabStage() == null)
+            _playerController = FindObjectOfType<PlayerController>();
+
+            if (_playerController!=null)
             {
-                _playerController ??= FindObjectOfType<PlayerController>();
                 var chars = FindObjectsOfType<Character>();
             
                 if (chars.Length>=2)
