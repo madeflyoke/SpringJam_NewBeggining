@@ -16,8 +16,6 @@ namespace Content.Scripts.Game
         [SerializeField] private LocationPartType _locationType;
         [SerializeField] private ParticleSystem _snowParticles;
         [SerializeField] private ParticleSystem _fliesParticles;
-        [SerializeField] private Color _forestFogColor;
-        [SerializeField] private Color _caveFogColor;
 
         private void Awake()
         {
@@ -44,7 +42,6 @@ namespace Content.Scripts.Game
         {
             _snowParticles.Play();
             _fliesParticles.Stop();
-            RenderSettings.fogColor = _forestFogColor;
             S_currentLocationType = LocationPartType.FOREST;
         }
 
@@ -52,7 +49,6 @@ namespace Content.Scripts.Game
         {
             _snowParticles.Stop();
             _fliesParticles.Play();
-            RenderSettings.fogColor = _caveFogColor;
             S_currentLocationType = LocationPartType.CAVE;
         }
     }
