@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
   m_FogMode: 1
   m_FogDensity: -0
@@ -812,15 +812,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5470780835253966143, guid: 7777c284318f2964ea18fb455fda9a43, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 223.10693
+      value: 214.00696
       objectReference: {fileID: 0}
     - target: {fileID: 5470780835253966143, guid: 7777c284318f2964ea18fb455fda9a43, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 156.55322
+      value: 156.35324
       objectReference: {fileID: 0}
     - target: {fileID: 5470780835253966143, guid: 7777c284318f2964ea18fb455fda9a43, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -71.14888
+      value: -71.228874
       objectReference: {fileID: 0}
     - target: {fileID: 6307711804956736462, guid: 7777c284318f2964ea18fb455fda9a43, type: 3}
       propertyPath: m_Name
@@ -2131,6 +2131,11 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!198 &705170693 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7498957891951032010, guid: 7777c284318f2964ea18fb455fda9a43, type: 3}
+  m_PrefabInstance: {fileID: 162116523}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &737965415
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,9 +2357,17 @@ PrefabInstance:
       value: LocationColliders
       objectReference: {fileID: 0}
     - target: {fileID: 5568678058592408876, guid: 01b57614a98acb24d9cc4a3762eea0ee, type: 3}
+      propertyPath: _snowParticles
+      value: 
+      objectReference: {fileID: 705170693}
+    - target: {fileID: 5568678058592408876, guid: 01b57614a98acb24d9cc4a3762eea0ee, type: 3}
       propertyPath: _fliesParticles
       value: 
       objectReference: {fileID: 162116525}
+    - target: {fileID: 7272116250045775146, guid: 01b57614a98acb24d9cc4a3762eea0ee, type: 3}
+      propertyPath: _snowParticles
+      value: 
+      objectReference: {fileID: 705170693}
     - target: {fileID: 7272116250045775146, guid: 01b57614a98acb24d9cc4a3762eea0ee, type: 3}
       propertyPath: _fliesParticles
       value: 
