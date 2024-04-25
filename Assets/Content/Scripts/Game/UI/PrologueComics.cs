@@ -27,10 +27,12 @@ namespace Content.Scripts.Game.UI
             wrapper = GetComponent<CanvasGroup>();
             content.DOFade(0, 0);
             textField.DOFade(0, 0);
+            gameObject.SetActive(false);
         }
 
         public void Show()
         {
+            gameObject.SetActive(true);
             nextBTN.onClick.AddListener(MoveNext);
             dialogIndex = 0;
             textField.text = Dialogs[dialogIndex];
