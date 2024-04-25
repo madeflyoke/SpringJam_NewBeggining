@@ -9460,6 +9460,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -1.079
       objectReference: {fileID: 0}
+    - target: {fileID: 443959134484922047, guid: 950200a793740c04eb1cb24fcf694ba0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 127.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 443959134484922047, guid: 950200a793740c04eb1cb24fcf694ba0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 141.22409
+      objectReference: {fileID: 0}
+    - target: {fileID: 443959134484922047, guid: 950200a793740c04eb1cb24fcf694ba0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 166.56999
+      objectReference: {fileID: 0}
+    - target: {fileID: 443959134484922047, guid: 950200a793740c04eb1cb24fcf694ba0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.0626
+      objectReference: {fileID: 0}
+    - target: {fileID: 443959134484922047, guid: 950200a793740c04eb1cb24fcf694ba0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.7539
+      objectReference: {fileID: 0}
+    - target: {fileID: 443959134484922047, guid: 950200a793740c04eb1cb24fcf694ba0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.1453
+      objectReference: {fileID: 0}
     - target: {fileID: 487527301091501473, guid: 950200a793740c04eb1cb24fcf694ba0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -12030,7 +12054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9059883448823800173, guid: 3b4a7d5eb932bae46b8a20325da800a5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 431
+      value: 448.3
       objectReference: {fileID: 0}
     - target: {fileID: 9059883448823800173, guid: 3b4a7d5eb932bae46b8a20325da800a5, type: 3}
       propertyPath: m_LocalPosition.y
